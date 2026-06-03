@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="char.css">
+    <title>Ginger</title>
+</head>
+<html lang="en">
+    <body>
+        <div id="cfix"></div>
+        <div id="container">
+            <div id="text-content">
+                <p><i><u><a href="hollowlife.html">Return</a></u></i></p>
+                <h1>Ginger</h1>
+                <div class="text-entry">
+                    <h2>Information</h2>
+                    <p>Ginger was an orphan who never got the life she wanted. Her peers never showed interest in her, so she stayed alone for over a decade. Her favorite pastime is artistry.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>Posthumous</h2>
+                    <p>Before, she escaped the orphanage to find solace before her final moments during <a href="siphoning.html"><i>The Great Siphoning</i></a>. Miraculously, she reunited with <a href="blackberry.html"><i>Blackberry</i></a> after being separated for over a decade. They embraced each other before being reanimated post-siphon.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>Quotes</h2>
+                    <p><i>"There were no signs of struggling, just a choked gasp before collapsing on the ground. Blood painted the pavement in a thick crimson. Hours later, he awoke to a couple passing by. Without an ounce of mercy, he beheaded the mistress before splitting the swain's head in two. Now a revenant, he walks this world to seek..."</i></p>
+                    <p><i>"...Threw his severed head at her, making an audible crunch upon impact. Treading closer, he ignited her home in hopes they would burn in the inferno together. She would escape to a nearby cavern, while he remained charred in the ashes. Despite everything, he cannot die until he is forgotten."</i></p>
+                </div>
+            </div>
+            <div id="image-frame">
+                <div class="textbox" id="label"></div>
+                <div class="appearance-buttons" id="buttons"></div>
+                <div id="image-container">
+                    <img id="char">
+                </div>
+                <div class="infobox"></div>
+            </div>
+            <script>
+                const amb = new Audio('characters.opus');
+                amb.loop = true;
+                setTimeout( () => {
+                    amb.play()
+                }
+                , 256);
+                const l = document.querySelector('.textbox')
+                  , desc = document.querySelector('.infobox');
+                l.textContent = "Appearance:";
+                buttons.innerHTML = '';
+                const lvl = [{
+                    label: "Current",
+                    src: "ginger.png",
+                    desc: "She never got to live the life she wanted."
+                }, {
+                    label: "Former",
+                    src: "gingy.jpg",
+                    desc: "We don't think she was treated well."
+                }];
+                lvl.forEach( (e, t) => {
+                    let s = document.createElement("button");
+                    s.textContent = e.label,
+                    s.style.width = "100%",
+                    s.addEventListener("click", () => {
+                        buttons.querySelectorAll("button").forEach(e => e.classList.remove("pressed")),
+                        s.classList.add("pressed"),
+                        char.src = e.src,
+                        desc.innerHTML = e.desc || desc.innerHTML
+                    }
+                    ),
+                    buttons.appendChild(s),
+                    0 === t && s.click()
+                }
+                )
+            </script>
+        </div>
+    </body>
+</html>

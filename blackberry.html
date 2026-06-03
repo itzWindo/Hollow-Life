@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="char.css">
+    <title>Blackberry</title>
+</head>
+<html lang="en">
+    <body>
+        <div id="cfix"></div>
+        <div id="container">
+            <div id="text-content">
+                <p><i><u><a href="hollowlife.html">Return</a></u></i></p>
+                <h1>Blackberry</h1>
+                <div class="text-entry">
+                    <h2>Information</h2>
+                    <p>Blackberry is a high-grade, artificially created hybrid of a human and a feline. Her black hair and sweet, yet bewitching personality are how she got her name. She likely has relations with <a href="them.html"><i>"Them"</i>.</a></p>
+                </div>
+                <div class="text-entry">
+                    <h2>Architecture</h2>
+                    <p>Due to being an artificial being, she does not possess any biological material, such as organs, tissue, or a beating heart. This allowed her to be unaffected by <a href="siphoning.html"><i>The Great Siphoning</i></a>. Her skin is made of a special collagen that mimics human skin. Her artificial intelligence does have consciousness, which makes it not only difficult to tell her apart from others but also incredibly hard to study her AI for future endeavors.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>History</h2>
+                    <p>Blackberry was adopted into <a href="ginger.html"><i>Ginger's</i></a> family and lived with her for five years before both lost their parents. They had to be put in foster homes, but Blackberry escaped and began living on her own. Ginger was not so lucky. After a long enough time, Blackberry was presumed dead, so she was no longer being tracked down to be studied. They've been separated from each other for over a decade.</p>
+                </div>
+            </div>
+            <div id="image-frame">
+                <div class="textbox" id="label"></div>
+                <div class="appearance-buttons" id="buttons"></div>
+                <div id="image-container">
+                    <img id="char">
+                </div>
+                <div class="infobox"></div>
+            </div>
+            <script>
+                const amb = new Audio('characters.opus');
+                amb.loop = true;
+                setTimeout( () => {
+                    amb.play()
+                }
+                , 256);
+                const l = document.querySelector('.textbox')
+                  , desc = document.querySelector('.infobox');
+                l.textContent = "Appearance:";
+                buttons.innerHTML = '';
+                const lvl = [{
+                    label: "Current",
+                    src: "blackberry.png",
+                    desc: "Whether or not she has a soul is up for debate."
+                }, {
+                    label: "Former",
+                    src: "bblead.jpg",
+                    desc: "A photograph of a silhouette, very likely being Blackberry fleeing from imminent detainment."
+                }];
+                lvl.forEach( (e, t) => {
+                    let s = document.createElement("button");
+                    s.textContent = e.label,
+                    s.style.width = "100%",
+                    s.addEventListener("click", () => {
+                        buttons.querySelectorAll("button").forEach(e => e.classList.remove("pressed")),
+                        s.classList.add("pressed"),
+                        char.src = e.src,
+                        desc.innerHTML = e.desc || desc.innerHTML
+                    }
+                    ),
+                    buttons.appendChild(s),
+                    0 === t && s.click()
+                }
+                )
+            </script>
+        </div>
+    </body>
+</html>

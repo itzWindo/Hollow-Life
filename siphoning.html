@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>The Great Siphoning</title>
+</head>
+<script>
+    document.querySelectorAll("nav a.cat").forEach(e => {
+        let t = e.getAttribute("href").replace(/\/+$/, "");
+        t === location.pathname.replace(/\/+$/, "") && (e.id = "currentcat")
+    }
+    );
+    document.addEventListener("DOMContentLoaded", () => {
+        const _Cf = localStorage.getItem("header_color");
+        _Cf && _Ff[_Cf] && document.querySelector("header") && (document.querySelector("header").style.filter = _Ff[_Cf])
+    }
+    );
+</script>
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="char.css">
+    <body>
+        <div id="cfix"></div>
+        <div id="container">
+            <div id="text-content">
+                <p><i><u><a href="hollowlife.html">Return</a></u></i></p>
+                <h1>The Great Siphoning</h1>
+                <div class="text-entry">
+                    <h2>Description</h2>
+                    <p>The Great Siphoning event occurred in April, 2021, where this universe was siphoned of its energy and resources by an <i>Unknown Entity</i>. All the catastrophes that had befallen everywhere were a result of this universe-scale event.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>History</h2>
+                    <p>When The Great Siphoning began, dim, purple tendrils began appearing in the night sky. These tendrils target all the celestial bodies in the universe and would siphon energy from them. Over the next few weeks, more would appear and could be visible during the day. In the last hours, a bright ring in the epicenter began forming, indicating that one of those tendrils was being directed straight towards us.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>Aftermath</h2>
+                    <p>After 75% of this universe's resources were harvested, everything was left in shambles. Planets, Stars, and Galaxies cannot thrive and will eventually decay due to a lack of resources. Every living creature, big and small, fell victim to this and is now left in a half-alive, half-dead state. Everyone remains biologically alive, but is mostly dead psychologically.</p>
+                </div>
+            </div>
+            <div id="image-frame">
+                <div class="textbox">Appearance:</div>
+                <div class="appearance-buttons">
+                    <button style="width:100%">Last photograph</button>
+                </div>
+                <div id="image-container">
+                    <img src="siphon.jpg">
+                </div>
+                <div class="infobox">A tendril approaches.</div>
+            </div>
+            <script>
+                const amb = new Audio('characters.opus');
+                amb.loop = true;
+                setTimeout( () => {
+                    amb.play()
+                })
+            </script>
+        </div>
+    </body>
+</html>

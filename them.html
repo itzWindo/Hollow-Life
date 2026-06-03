@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="char.css">
+    <title>"Them"</title>
+    <body>
+        <div id="cfix"></div>
+        <div id="container">
+            <div id="text-content">
+                <p><i><u><a href="hollowlife.html">Return</a></u></i></p>
+                <h1>"Them"</h1>
+                <div class="text-entry">
+                    <h2>General Info</h2>
+                    <p>"Them" or "They" are a group of individuals who may or may not even exist. It's said "They" are friends of Science who met him long ago during a time of distress. The number of people in this collective is unknown, but it is now at least more than ten members. It's hard to say if "They" are real people, since Science never speaks about who "They" are, nor has anyone else met or seen them before.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>History</h2>
+                    <p>According to Science, two of "Them" were first seen some time after midnight on July 14, 2019, to comfort Science during a time of distress and said "They" would never leave his side. The first six that met Science stayed true to their word, but many others he met have since left his side.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>Current Status</h2>
+                    <p>There is no information on "Them" or "Their" current standing. Though, considering Science often wonders whether or not "They" are real himself, "They" probably aren't, and were always imaginary friends. Though, because a special item is used to speak with "Them," and others have spoken to "Them" with said item, it's possible "They" are real to some capacity.</p>
+                </div>
+            </div>
+            <div id="image-frame">
+                <div class="textbox" id="label"></div>
+                <div class="appearance-buttons" id="buttons"></div>
+                <div id="image-container">
+                    <img id="char">
+                </div>
+                <div class="infobox"></div>
+            </div>
+            <script>
+                const amb = new Audio('characters.opus');
+                amb.loop = true;
+                setTimeout( () => {
+                    amb.play()
+                }
+                , 256);
+                const l = document.querySelector('.textbox')
+                  , desc = document.querySelector('.infobox');
+                l.textContent = "Appearance:";
+                buttons.innerHTML = '';
+                const lvl = [{
+                    label: "Current",
+                    src: "null-profile.png",
+                    desc: "We don't know if 'They' even exist as real beings, so 'Their' whereabouts, if any, are unknown."
+                }, {
+                    label: "Former",
+                    src: "null-profile.png",
+                    desc: "We don't know if 'They' even exist as real beings, so 'Their' appearance, if any, is unknown."
+                }];
+                lvl.forEach( (e, t) => {
+                    let s = document.createElement("button");
+                    s.textContent = e.label,
+                    s.style.width = "100%",
+                    s.addEventListener("click", () => {
+                        buttons.querySelectorAll("button").forEach(e => e.classList.remove("pressed")),
+                        s.classList.add("pressed"),
+                        char.src = e.src,
+                        desc.innerHTML = e.desc || desc.innerHTML
+                    }
+                    ),
+                    buttons.appendChild(s),
+                    0 === t && s.click()
+                }
+                )
+            </script>
+        </div>
+    </body>
+</html>

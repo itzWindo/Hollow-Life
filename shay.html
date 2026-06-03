@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="char.css">
+    <title>Shay</title>
+</head>
+<html lang="en">
+    <body>
+        <div id="cfix"></div>
+        <div id="container">
+            <div id="text-content">
+                <p><i><u><a href="hollowlife.html">Return</a></u></i></p>
+                <h1>Shay</h1>
+                <div class="text-entry">
+                    <h2>Description</h2>
+                    <p>Shay is a feral 300-centimeter-tall demi-human who finds pleasure in creating music. She can transform into a more innocuous form when going out in public during the day.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>Occupation</h2>
+                    <p>After graduating from college to earn her nursing degree, she focused solely on producing music for the world, playing VRChat, and spending her time with her <span style="color: #551a8b;"><i><u>now-deceased partner.</u></i></span></p>
+                </div>
+                <div class="text-entry">
+                    <h2>Whereabouts</h2>
+                    <p>Shay spends the rest of her days secluded in a cave, only coming out to find food. During a blood moon, she will kill those she comes across with the large stalactites she finds in her cave. She has abandoned her home after surviving <a href="siphoning.html"><i>The Great Siphoning</i></a>.</p>
+                </div>
+            </div>
+            <div id="image-frame">
+                <div class="textbox" id="label"></div>
+                <div class="appearance-buttons" id="buttons"></div>
+                <div id="image-container">
+                    <img id="char">
+                </div>
+                <div class="infobox"></div>
+            </div>
+            <script>
+                const amb = new Audio('characters.opus');
+                amb.loop = true;
+                setTimeout( () => {
+                    amb.play()
+                }
+                , 256);
+                const l = document.querySelector('.textbox')
+                  , desc = document.querySelector('.infobox');
+                l.textContent = "Appearance:";
+                buttons.innerHTML = '';
+                const lvl = [{
+                    label: "General",
+                    src: "shay.jpg",
+                    desc: "Cave dweller."
+                }, {
+                    label: "Alternate",
+                    src: "azazal.jpg",
+                    desc: "Depiction of Shay in her innocuous form."
+                }];
+                lvl.forEach( (e, t) => {
+                    let s = document.createElement("button");
+                    s.textContent = e.label,
+                    s.style.width = "100%",
+                    s.addEventListener("click", () => {
+                        buttons.querySelectorAll("button").forEach(e => e.classList.remove("pressed")),
+                        s.classList.add("pressed"),
+                        char.src = e.src,
+                        desc.innerHTML = e.desc || desc.innerHTML
+                    }
+                    ),
+                    buttons.appendChild(s),
+                    0 === t && s.click()
+                }
+                )
+            </script>
+        </div>
+    </body>
+</html>
