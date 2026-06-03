@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta charset="UTF-8">
+    <title>Characters</title>
+    <link rel="stylesheet" href="nav.css">
+</head>
+<html lang="en">
+    <body>
+        <div id="cfix"></div>
+        <div class="bg-sides" id="left"></div>
+        <div class="bg-sides" id="right"></div>
+        <div id="front">
+            <div id="hblock"></div>
+            <div id="default" style="display:block">
+                <div class="textframe">
+                    <div class="cat-text">
+                        <b>Characters</b>
+                    </div>
+                </div>
+                <div class="frameframe">
+                    <portc>
+                        <a href="john.html">
+                            <img src="John.png">
+                        </a>
+                        <div class="titc">John Meowshup</div>
+                    </portc>
+                    <portc>
+                        <a href="shay.html">
+                            <img src="Shay.jpg" width="200">
+                        </a>
+                        <div class="titc">Shay</div>
+                    </portc>
+                    <portc>
+                        <a href="blackberry.html">
+                            <img src="blackberry.png" height="200">
+                        </a>
+                        <div class="titc">Blackberry</div>
+                    </portc>
+                    <portc>
+                        <a href="ginger.html">
+                            <img src="ginger.png">
+                        </a>
+                        <div class="titc">Ginger</div>
+                    </portc>
+                    <portc>
+                        <a href="https://youtu.be/5M6OuZM_Qgg">
+                            <img src="science.png" width="200">
+                        </a>
+                        <div class="titc">Science</div>
+                    </portc>
+                    <portc>
+                        <a href="them.html">
+                            <img src="null-profile.png" width="200">
+                        </a>
+                        <div class="titc">"Them"</div>
+                    </portc>
+                    <portc>
+                        <a href="https://itzwindo.github.io/vsWG2/char3.html">
+                            <img src="unknown-entity.png" width="200">
+                        </a>
+                        <div class="titc">Unknown Entity</div>
+                    </portc>
+                    <portc>
+                        <a href="siphoning.html">
+                            <img src="siphon.jpg" width="200">
+                        </a>
+                        <div class="titc">Great Siphoning</div>
+                    </portc>
+                </div>
+            </div>
+        </div>
+        <script>
+            const amb = new Audio('realm.opus');
+            setTimeout( () => {
+                amb.play()
+            }
+            , 64);
+            amb.loop = true;
+            document.addEventListener("DOMContentLoaded", function() {
+                document.querySelectorAll("portc").forEach(function(e) {
+                    e.style.position = "relative",
+                    e.style.left = Math.floor(18 * Math.random()) - 2 + "px",
+                    e.style.top = Math.floor(64 * Math.random()) - 2 + "px";
+                    for (var t = Math.floor(1 * Math.random()) + 4.5, n = Math.floor(1 * Math.random()) + .5, l = Math.floor(55 * Math.random()) + 6, r = [], o = [], a = 0; a <= t; a++) {
+                        var s = a / t * 256
+                          , i = a % 2 == 0 ? 1 : -7;
+                        r.push(`${s}% { left: ${i}px; }`)
+                    }
+                    for (var a = 0; a <= n; a++) {
+                        var s = a / n * 100
+                          , i = a % 2 == 0 ? 2 : -3;
+                        o.push(`${s}% { top: ${i}px; }`)
+                    }
+                    var d = `bounceX-${Math.random().toString(36).substring(7)}`
+                      , c = `bounceY-${Math.random().toString(36).substring(7)}`
+                      , u = `@keyframes ${d} { ${r.join(" ")} }`
+                      , f = `@keyframes ${c} { ${o.join(" ")} }`
+                      , m = document.styleSheets[0];
+                    m.insertRule(u, m.cssRules.length),
+                    m.insertRule(f, m.cssRules.length),
+                    e.style.animation = `${d} ${l}s linear infinite, ${c} ${l}s linear infinite`
+                })
+            });
+        </script>
+    </body>
+</html>
