@@ -14,9 +14,31 @@
     <body>
         <div style="width:100vw;height:100vh;top:0;left:0">
             <a href="index.html">
-                <img src="lostjohn.jpg" style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)">
+                <img id="mainImage" src="foundjohn.jpg" style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)">
             </a>
         </div>
+        <script>
+            const img = document.getElementById("mainImage");
+
+            // Check URL parameter
+            const params = new URLSearchParams(window.location.search);
+            const imageType = params.get("image");
+
+            if (imageType === "found") {
+                document.cookie = "imageChoice=found; path=/; max-age=31536000";
+            }
+
+            // Read cookie
+            const cookieMatch = document.cookie.match(/imageChoice=([^;]+)/);
+            const savedChoice = cookieMatch ? cookieMatch[1] : null;
+
+            if (savedChoice === "found") {
+                img.src = "foundjohn.jpg";
+            }
+            else {
+                img.src = "lostjohn.jpg";
+            }
+        </script>
         <script>
             const amb = new Audio('isyupow.opus');
             setTimeout( () => {

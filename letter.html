@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confession</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .background {
+            position: fixed;
+            width: 140%;
+            height: 140%;
+            background-color: black;
+        }
+
+        @font-face {
+            font-family: 'Anarchy';
+            src: url('Anarchy.ttf') format('truetype');
+        }
+
+        .content {
+            position: relative;
+            z-index: 3;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ebbbff;
+            text-align: center;
+            padding: 2rem;
+            perspective: 1500px;
+        }
+
+        .letter-container {
+            background: url('wasteland.png');
+            padding: 4rem;
+            margin: 2rem;
+            max-width: 850px;
+            max-height: 70vh;
+            opacity: 0;
+            transform: translateY(50px) translateZ(0) rotateX(8deg);
+            animation: gentleReveal 1.2s ease-out 0.5s forwards;
+            position: relative;
+            overflow-y: auto;
+            will-change: transform, opacity;
+            transform-style: preserve-3d;
+        }
+
+        .letter-container {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes gentleReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) translateZ(0) rotateX(0deg);
+            }
+        }
+
+        .letter-title {
+            font-family: 'Anarchy';
+            font-size: 2.8rem;
+            color: #7e00e6;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .letter-content {
+            font-family: 'Anarchy';
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #9b76df;
+            font-weight: 400;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        
+        .letter-content p {
+            text-indent: 2em;
+        }
+
+        .signature {
+            font-family: 'Anarchy';
+            font-size: 1.8rem;
+            color: #a55dd5;
+            text-align: right;
+            margin-top: 2rem;
+        }
+
+        .next-button {
+            background: url('wasteland.png');
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Anarchy';
+            box-shadow: 0 6px 20px rgb(28, 0, 44);
+            transition: all 0.3s ease;
+            text-transform: none;
+            letter-spacing: 0.5px;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInButton 1s ease-out 3s forwards;
+            text-align: center;
+            display: block;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 10px 25px rgb(0, 0, 0);
+        }
+
+        .next-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @keyframes fadeInButton {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="content">
+        <div class="letter-container" id="letterContainer">
+          <h1 class="letter-title">My dearest,</h1>
+          <div class="letter-content">
+              <p>In these last ███ months, you've given me more joy than I've ever been in my ████ years of existing—perhaps the happiest in this meaningless existence. All my life, I saw the world through a lens that showed me humanity is inherently cynical. They only want to project themselves onto others, corrupt their kind with nonsensical beliefs, and discriminate against everyone who strays even mildly from normality. But you're not human. If you were, you wouldn't have given up your time to console me.</p>
+              <br>
+              <p>Sometimes I feel like I can't be my truest self. I wear a facade and pretend to be someone I'm not. Everyone likes the facade I wear, but you liked me without one. I could tell you my real thoughts, interests, and secrets, and you'd never show an ounce of judgment. You saw me for who I truly was, and I couldn't be more thankful.</p>
+              <br>
+              <p>You must have it rougher, don't you? You showed the world who you truly were, and they rejected you. Don't let that get to your head; you broke away from normality. You fought back against the world, and that by itself is commendable. Don't let others tell you what you should and shouldn't be, can and can't do, as they're not in control of your life; you are.</p>
+              <br>
+              <p>And that's why I need to say that I love you. From the moment we met and you heard me out, I knew you were unique; that you weren't like the others, and that you couldn't have been a human. You're the only living being I could trust. You gave me hope when I needed it the most, and now I want to do the same for you. The world is vastly larger than either of us, and the time we have is finite. We will never see every landmark, coastline, theme park, or event, but I hope we can spend our days exploring as much as we can together.</p>
+          </div>
+          <div class="signature">
+              With my beating heart,<br>
+              A███████
+          </div>
+            <button class="next-button" onclick="askTheQuestion()">
+                That brings me to my greatest inquiry.
+            </button>
+        </div>
+    </div>
+    <script>
+        const amb = new Audio('letter.opus');
+            amb.loop = true;
+            setTimeout( () => {
+                amb.play()
+            }
+        , 256)
+
+        let isTransitioning = false;
+
+        function revealLetter() {
+            const overlay = document.getElementById('blurOverlay');
+            
+            overlay.classList.add('hidden');
+        }
+
+        function askTheQuestion() {
+            if (isTransitioning) return;
+            
+            isTransitioning = true;
+            const letterContainer = document.getElementById('letterContainer');
+            const content = document.querySelector('.content');
+            const button = document.querySelector('.next-button');
+            
+            button.disabled = true;
+            
+            setTimeout(() => {
+                letterContainer.style.display = 'none';
+                
+                const imageWrapper = document.createElement('div');
+                imageWrapper.className = 'image-wrapper';
+                imageWrapper.style.cssText = `
+                    position: relative;
+                    display: inline-block;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: all 0.8s ease-out;
+                `;
+                
+                const questionImage = document.createElement('img');
+                questionImage.src = '20210322.png';
+                questionImage.alt = 'The Important Question';
+                questionImage.style.cssText = `
+                    display: block;
+                    max-width: 700px;
+                    width: 100%;
+                    height: auto;
+                    border-radius: 15px;
+                    box-shadow: 
+                        0 15px 30px rgba(0, 0, 0, 0.1),
+                        0 8px 16px rgba(0, 0, 0, 0.08),
+                        0 4px 8px rgba(0, 0, 0, 0.06);
+                    transition: transform 0.3s ease;
+                `;
+                
+                const redBox1 = document.createElement('div');
+                redBox1.style.cssText = `
+                    position: absolute;
+                    top: 81%;
+                    left: 23%;
+                    width: 40px;
+                    height: 30px;
+                    border: none;
+                    background: transparent;
+                    cursor: pointer;
+                    z-index: 10;
+                    transition: transform 0.3s ease;
+                    pointer-events: all;
+                    transform-origin: center;
+                `;
+                
+                const redBox2 = document.createElement('div');
+                redBox2.style.cssText = `
+                    position: absolute;
+                    top: 85%;
+                    left: 24%;
+                    width: 40px;
+                    height: 30px;
+                    border: none;
+                    background: transparent;
+                    cursor: pointer;
+                    z-index: 10;
+                    transition: transform 0.3s ease;
+                    pointer-events: all;
+                    transform-origin: center;
+                `;
+                
+                function drawX(element) {
+                    const isTopBox = element.style.top === '81%';
+                    const color = isTopBox ? '#000000' : '#000000';
+                    
+                    element.innerHTML = `
+                        <svg width="100%" height="100%" viewBox="0 0 40 30" style="position: absolute; top: 0; left: 0;">
+                            <line x1="5" y1="5" x2="35" y2="25" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="35" y1="5" x2="5" y2="25" stroke="${color}" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    `;
+                }
+                
+                function scaleUp() {
+                    questionImage.style.transform = 'scale(1.02)';
+                    redBox1.style.transform = 'scale(1.12)';
+                    redBox2.style.transform = 'scale(1.12)';
+                }
+                
+                function scaleDown() {
+                    questionImage.style.transform = 'scale(1)';
+                    redBox1.style.transform = 'scale(1) translate(10%, -17%)';
+                    redBox2.style.transform = 'scale(1) translate(10%, -17%)';
+                }
+                
+                redBox1.onclick = (e) => {
+                    e.stopPropagation();
+                    drawX(redBox1);
+                    setTimeout(() => {
+                        window.location.href = "john.html?image=found";
+                    }, 200);
+                };
+                
+                redBox2.onclick = (e) => {
+                    e.stopPropagation();
+                    drawX(redBox2);
+                    setTimeout(() => {
+                        alert("Maybe in another future.");
+                        window.location.href = "index.html";
+                    }, 200);
+                };
+                
+                redBox1.addEventListener('mouseenter', scaleUp);
+                redBox1.addEventListener('mouseleave', scaleDown);
+                redBox2.addEventListener('mouseenter', scaleUp);
+                redBox2.addEventListener('mouseleave', scaleDown);
+                questionImage.addEventListener('mouseenter', scaleUp);
+                questionImage.addEventListener('mouseleave', scaleDown);
+                
+                questionImage.addEventListener('load', () => {
+                    imageWrapper.style.opacity = '1';
+                    imageWrapper.style.transform = 'translateY(0)';
+                    isTransitioning = false;
+                });
+                
+                imageWrapper.appendChild(questionImage);
+                imageWrapper.appendChild(redBox1);
+                imageWrapper.appendChild(redBox2);
+                content.appendChild(imageWrapper);
+                
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
