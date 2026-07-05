@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta charset="UTF-8">
+    <title>Characters</title>
+    <link rel="stylesheet" href="nav.css">
+    <script>
+        const allowedReferrer = ["https://itzwindo.github.io/Hollow-Life/jsbgst.html", "https://itzwindo.github.io/Hollow-Life/past/watersill.html"];
+        const isAllowed = allowedReferrer.some(url => document.referrer.includes(url));
+
+        if (!isAllowed) {
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.innerHTML = `
+                <div class="invalid">You're not supposed to be here yet.</div>
+                `;
+            });
+        }
+    </script>
+</head>
+<html lang="en">
+    <style>
+        @font-face {
+            font-family: 'Clock';
+            src: url('https://itzwindo.github.io/Hollow-Life/clock.ttf') format('truetype');
+        }
+        
+        #clock {
+            background-color: black;
+            width: 100px; /* Can be in percentage also. */
+            height: auto;
+            margin: 0 auto;
+            padding: 10px;
+            border: 3px solid rgb(255, 0, 0);
+            text-align: center;
+            box-shadow: 0px 0px 9px rgb(255, 0, 0);
+            font-family: 'clock';
+        }
+
+        a, a:link, a:visited, a:hover, a:active {
+            color: #ff0000;
+        }
+    </style>
+    <body>
+        <div id="cfix"></div>
+        <div class="bg-sides" id="left"></div>
+        <div class="bg-sides" id="right"></div>
+        <div id="front">
+            <div id="hblock"></div>
+            <div id="default" style="display:block">
+                <div class="textframe">
+                    <div class="cat-text">
+                        <b>Points of Interest</b>
+                    </div>
+                </div>
+                <div class="frameframe">
+                    <portc>
+                        <a href="watersill.jpg" download="watersill.jpg">
+                            <img src="https://itzwindo.github.io/Hollow-Life/character/bblead.png" height="200">
+                        </a>
+                        <div class="titc">Blackberry</div>
+                    </portc>
+                    <portc>
+                        <a href="watersill.html">
+                            <img src="wral.jpg" height="200">
+                        </a>
+                        <div class="titc">Watersill</div>
+                    </portc>
+                </div>
+                <div id="clock"><a href="https://itzwindo.github.io/Hollow-Life/jsbgst.html">
+                        2012-03-22
+                    </a>
+                </div>
+                <p style="text-align: right; font-size: small; color: rgb(255, 255, 255); font-family: 'Courier New', Courier, monospace;">v1.1.0</p>
+            </div>
+        </div>
+    </body>
+</html>

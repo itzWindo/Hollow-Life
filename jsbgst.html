@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @font-face {
+            font-family: 'Clock';
+            src: url('Clock.ttf') format('truetype');
+        }
+
+        body {
+            background: black;
+            color: rgb(255, 0, 0);
+            font-family: 'Clock';
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #clock {
+            width: 320px;
+            padding: 20px;
+            border: 3px solid rgb(255, 0, 0);
+            text-align: center;
+            box-shadow: 0px 0px 9px rgb(255, 0, 0);
+        }
+
+        #display {
+            font-size: 2em;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        button {
+            font-size: 1em;
+            font-family: 'Clock';
+            color: red;
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: black;
+            box-shadow: outset 0 2px 13px rgb(255, 0, 0)
+        }
+    </style>
+</head>
+    <body>
+        <div id="clock">
+            <div id="display">2022-03-22</div>
+            <button id="toggleBtn" title="Set date.">SET DATE</button>
+            <button id="travelBtn" title="Travel.">TRAVEL</button>
+        </div>
+
+        <script>
+            const destinations = {
+                "2012-03-22": "past/index.html",
+                "2022-03-22": "index.html"
+            };
+
+            let currentDate = "2022-03-22";
+
+            toggleBtn.onclick = () => {
+                currentDate =
+                    currentDate === "2022-03-22"
+                        ? "2012-03-22"
+                        : "2022-03-22";
+
+                display.textContent = currentDate;
+            };
+
+            travelBtn.onclick = () => {
+                window.location.href = destinations[currentDate];
+            };
+        </script>
+    </body>
+</html>

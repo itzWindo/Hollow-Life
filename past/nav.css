@@ -1,0 +1,211 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to right, #777777, #555555);
+    overflow: hidden;
+    min-height: 100vh
+}
+
+.invalid {
+    background: black;
+    color: rgb(255, 255, 255);
+    font-family: Arial black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.frameframe {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 23px;
+    align-items: center;
+    border: 1px dotted rgb(255, 255, 255);
+    box-sizing: border-box;
+    height: auto;
+    max-width: 1080px;
+    width: auto;
+    margin: 16px auto 32px;
+    overflow: visible;
+    outline: rgb(51, 51, 51) double 2px;
+    background-image: linear-gradient(to right, #333, #bbb);
+    box-shadow: inset 0 2px 13px rgb(78, 78, 78)
+}
+
+.titc,.textframe {
+    background-image: linear-gradient(to right, #bbb, #333);
+    box-shadow: 0px 0px 9px rgb(79, 79, 79);
+}
+
+.titc {
+    text-align: center;
+    color: #ffffff;
+    text-shadow: rgb(74, 74, 74) 0 2px 8px;
+    height: 18px;
+    border: 2px solid #000;
+    font-weight: 700
+}
+
+.cat-text {
+    font-size: 53px;
+    color: rgb(255, 255, 255);
+    outline: #000;
+    width: 1080px;
+    margin: 28px auto auto 6px;
+    letter-spacing: -3px;
+    text-shadow: 0 4px 3px #000
+}
+
+.textframe {
+    height: 90px;
+    width: fit-content;
+    margin: auto auto -14px;
+    border: 2px solid;
+    outline: rgb(75, 75, 75) double 2px;
+    box-sizing: border-box
+}
+
+.bg-sides {
+    background: url('metallic.jpg');
+    background-repeat: repeat;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    height: 100%;
+    min-height: 910px;
+    box-shadow: 0px 0px 9px rgb(255, 255, 255);
+}
+
+#bg-sides,#right {
+    left: 88%;
+    right: 0
+}
+
+#bg-sides,#left {
+    right: 88%;
+    left: 0
+}
+
+.bg-sides::after,.bg-sides::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: url('celestial.png');
+    box-shadow: 0px 0px 9px rgb(114, 114, 114);
+}
+
+.bg-sides::before {
+    left: -2px
+}
+
+.bg-sides::after {
+    right: -2px
+}
+
+@media (max-width: 1471px) {
+    .textframe {
+        width:100%
+    }
+}
+
+@media (min-width: 1471px) {
+    .textframe {
+        width:1080px
+    }
+}
+
+@media (min-height: 769px) {
+    #search {
+        top:79px!important
+    }
+}
+
+#front {
+    width: 74%;
+    height: calc(100vh - 32px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: auto;
+    padding-inline:16px;padding-top: 42px;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(58, 58, 58) rgb(44, 44, 44)
+}
+
+portc {
+    width: 160px;
+    overflow: hidden;
+    font-size: 16px!important;
+    font-family: Arial Black;
+    position: relative;
+    border: 1px solid #2b0050;
+    box-shadow: 0px 0px 9px rgb(255, 255, 255);
+    padding-inline:3px;line-height: 1.1!important;
+    margin: 6px auto 24px auto;
+    scale: 0.96
+}
+
+portc:hover {
+    transform: translateY(-2px) scale(1.023)
+}
+
+portc img {
+    width: 170px;
+    margin-left: -3px;
+}
+
+portc:hover .titc {
+    border: 2px solid rgb(0, 255, 0);
+    text-shadow: rgb(255, 255, 255) 0 2px 8px;
+    box-shadow: 0px 0px 9px rgb(0, 255, 0);
+}
+
+@media (max-width: 1010px) {
+    .bg-sides {
+        display:none
+    }
+
+    #front {
+        width: 95%!important;
+        padding-top: 32px!important
+    }
+
+    #search {
+        left: 171px
+    }
+
+    portc {
+        width: 90px;
+        height: 140px
+    }
+
+    portc img {
+        height: 118px!important;
+        width: fit-content!important
+    }
+}
+
+@media (max-width: 1439px) {
+    #front {
+        width:75%!important;
+        padding-top: 36px!important
+    }
+
+    #search {
+        left: 163px;
+        z-index: 10!important
+    }
+
+    portc {
+        width: 90px;
+        height: 140px
+    }
+
+    portc img {
+        height: 118px!important;
+        width: fit-content!important
+    }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Watersill</title>
+    <link rel="stylesheet" href="invalid.css">
+    <script>
+        const allowedReferrer = "https://itzwindo.github.io/Hollow-Life/past/index.html";
+
+        if (!document.referrer.includes(allowedReferrer)) {
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.innerHTML = `
+                <div class="invalid">You're not supposed to be here yet.</div>
+                `;
+            });
+        }
+    </script>
+</head>
+    <body>
+        <link rel="stylesheet" href="char.css">
+        <div id="cfix"></div>
+        <div id="container">
+            <div id="text-content">
+                <p><i><u><a href="https://itzwindo.github.io/Hollow-Life/index.html">Return</a></u></i></p>
+                <h1>Watersill Research for Artifical Life</h1>
+                <div class="text-entry">
+                    <h2>Overview</h2>
+                    <p>The Watersill Research for Artificial Life, abbreviated as WRAL, is a research center located in a remote forest on the outskirts of Watersill where many experiments are held with the goal to create artifical life. Formed in the mid-1980s, WRAL was originally focused on preserving life after death but later switched to creating artificial life in the early to mid-1990s due to the ethical implications of experimenting with biological material.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>Appearance & Interior</h2>
+                    <p>No civilians have stepped foot inside WRAL or have taken any photos of its architecture beyond the fence surrounding it, let alone inside. Those who trespass beyond the fence are immediately escorted out before they can see the building. Drones that fly over are shot down, and the pilot is eventually detained and executed. This means nobody knows what WRAL looks like, and likely never will.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>List of Known Projects</h2>
+                    <p>Currently, none of the WRAL projects have been announced or revealed publicly due to their secrecy. Though, some of them have been leaked.</p>
+                    <ul>
+                        <li>Brain transplant for rats (c. 1988 - 1990)</li>
+                        <li>Mechanizing a human brain (August 1993 - May 1995)</li>
+                        <li>Creating artificial consciousness (1996 - 2008)</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="image-frame">
+                <div class="textbox">Appearance:</div>
+                <div class="appearance-buttons">
+                    <button style="width:100%">Outside premises</button>
+                </div>
+                <div id="image-container">
+                    <img src="wral.jpg">
+                </div>
+                <div class="infobox">The gate surrounding the facility with no trespassing signs.</div>
+            </div>
+        </div>
+        <script>
+            const amb = new Audio('birds.opus');
+            setTimeout( () => {
+                amb.play()
+            }
+            , 64);
+            amb.loop = true;
+        </script>
+    </body>
+</html>
