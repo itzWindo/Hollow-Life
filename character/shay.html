@@ -12,20 +12,20 @@
                 <p><i><u><a href="https://itzwindo.github.io/Hollow-Life/index.html">Return</a></u></i></p>
                 <h1>Shay</h1>
                 <div class="text-entry">
-                    <h2>Description</h2>
-                    <p>Shay is a feral 300-centimeter-tall demi-human who finds pleasure in creating music. She can transform into a more innocuous form when going out in public during the day.</p>
+                    <h2 id="desc1">Description</h2>
+                    <p id="par1">Shay is a feral 300-centimeter-tall demi-human who finds pleasure in creating music. She can transform into a more innocuous form when going out in public during the day.</p>
                 </div>
                 <div class="text-entry">
-                    <h2>Occupation</h2>
-                    <p>After graduating from college to earn her nursing degree, she focused solely on producing music for the world, playing VRChat, and spending her time with her <a href="https://itzwindo.github.io/Hollow-Life/letter.html">now-deceased partner.</a></p>
+                    <h2 id="desc2">Occupation</h2>
+                    <p id="par2">After graduating from college to earn her nursing degree, she focused solely on producing music for the world, playing VRChat, and spending her time with her <a href="https://itzwindo.github.io/Hollow-Life/letter.html">now-deceased partner.</a></p>
                 </div>
                 <div class="text-entry">
-                    <h2>Whereabouts</h2>
-                    <p>Shay spends the rest of her days secluded in a cave, only coming out to find food. During a blood moon, she will kill those she comes across with the large stalactites she finds in her cave. She has abandoned her home after surviving <a href="siphoning.html"><i>The Great Siphoning</i></a>.</p>
+                    <h2 id="desc3">Whereabouts</h2>
+                    <p id="par3">Shay spends the rest of her days secluded in a cave, only coming out to find food. During a blood moon, she will kill those she comes across with the large stalactites she finds in her cave. She has abandoned her home after surviving <a href="siphoning.html"><i>The Great Siphoning</i></a>.</p>
                 </div>
                 <div class="text-entry">
                     <h2>Gallery</h2>
-                    <p>These are photos taken inside of Shay's cave while she was away.</p>
+                    <p id="par4">These are photos taken inside of Shay's cave while she was away.</p>
                     <img src="cave1.png" style="height: 200px;">
                     <img src="cave2.png" style="height: 200px;">
                 </div>
@@ -39,6 +39,31 @@
                 <div class="infobox"></div>
             </div>
             <script>
+                const changed = document.cookie.match(/shayChoice=changed/);
+
+                if (changed) {
+                    document.getElementById("desc1").textContent =
+                        "Description.";
+
+                        document.getElementById("par1").textContent =
+                        "Shay is an anomaly that should never have befallen this planet. I cannot fathom the disdain I have for this malevolent creature. To see the world painted with her organs is a dream come true.";
+                
+                        document.getElementById("desc2").textContent =
+                        "Current Status.";
+
+                        document.getElementById("par2").textContent =
+                        'She must be heartbroken after her partner was ruthlessly murdered by yours truly. If only I could see her drown in her own tears.';
+
+                        document.getElementById("desc3").textContent =
+                        "???.";
+
+                        document.getElementById("par3").textContent =
+                        "I will find her.";
+
+                        document.getElementById("par4").textContent =
+                        "Images of the god forsaken cavern she loves isolating in so much. I hope a stalactite falls on her head and impales her brain.";
+                }
+
                 const amb = new Audio('characters.opus');
                 amb.loop = true;
                 setTimeout( () => {
@@ -49,15 +74,25 @@
                   , desc = document.querySelector('.infobox');
                 l.textContent = "Appearance:";
                 buttons.innerHTML = '';
-                const lvl = [{
+
+                const lvl = [
+                {
                     label: "General",
                     src: "https://itzwindo.github.io/Hollow-Life/shay.jpg",
                     desc: "Cave dweller."
-                }, {
+                },
+                {
                     label: "Alternate",
                     src: "azazal.jpg",
                     desc: "Depiction of Shay in her innocuous form."
-                }];
+                }
+                ];
+
+                if (changed) {
+                    lvl[1].src = "august.png";
+                    lvl[1].desc = "Look what you made me do.";
+                }
+
                 lvl.forEach( (e, t) => {
                     let s = document.createElement("button");
                     s.textContent = e.label,
@@ -67,7 +102,13 @@
                         s.classList.add("pressed"),
                         char.src = e.src,
                         desc.innerHTML = e.desc || desc.innerHTML
-                    }
+                        
+                        if (changed && e.label === "Alternate") {
+                            if (e.label === "Alternate") {
+                            amb.pause();
+                            amb.currentTime = 0; // Resets the audio position
+                            }
+                        }}
                     ),
                     buttons.appendChild(s),
                     0 === t && s.click()
