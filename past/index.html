@@ -5,7 +5,7 @@
     <title>Characters</title>
     <link rel="stylesheet" href="nav.css">
     <script>
-        const allowedReferrer = ["https://itzwindo.github.io/Hollow-Life/jsbgst.html", "https://itzwindo.github.io/Hollow-Life/past/watersill.html"];
+        const allowedReferrer = ["https://itzwindo.github.io/Hollow-Life/jsbgst.html", "https://itzwindo.github.io/Hollow-Life/past/watersill.html", "https://itzwindo.github.io/Hollow-Life/past/footage.html"];
         const isAllowed = allowedReferrer.some(url => document.referrer.includes(url));
 
         if (!isAllowed) {
@@ -21,7 +21,7 @@
     <style>
         @font-face {
             font-family: 'Clock';
-            src: url('https://itzwindo.github.io/Hollow-Life/Clock.ttf') format('truetype');
+            src: url('https://itzwindo.github.io/Hollow-Life/clock.ttf') format('truetype');
         }
         
         #clock {
@@ -33,7 +33,7 @@
             border: 3px solid rgb(255, 0, 0);
             text-align: center;
             box-shadow: 0px 0px 9px rgb(255, 0, 0);
-            font-family: 'Clock';
+            font-family: 'clock';
         }
 
         a, a:link, a:visited, a:hover, a:active {
@@ -55,7 +55,7 @@
                 <div class="frameframe">
                     <portc>
                         <a href="watersill.jpg" download="watersill.jpg">
-                            <img src="https://itzwindo.github.io/Hollow-Life/character/bblead.jpg" height="200">
+                            <img src="https://itzwindo.github.io/Hollow-Life/character/bblead.png" height="200">
                         </a>
                         <div class="titc">Blackberry</div>
                     </portc>
@@ -64,6 +64,12 @@
                             <img src="wral.jpg" height="200">
                         </a>
                         <div class="titc">Watersill</div>
+                    </portc>
+                    <portc>
+                        <a href="footage.html">
+                            <img src="sdcard.jpg" height="200">
+                        </a>
+                        <div class="titc">Found Footage</div>
                     </portc>
                 </div>
                 <div id="clock"><a href="https://itzwindo.github.io/Hollow-Life/jsbgst.html">
