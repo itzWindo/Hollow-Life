@@ -26,7 +26,7 @@
                         <div class="titc">John Meowshup</div>
                     </portc>
                     <portc>
-                        <a href="character/shay.html">
+                        <a id="shayLink" href="character/shay.html">
                             <img src="shay.jpg" width="200">
                         </a>
                         <div class="titc">Shay</div>
@@ -45,7 +45,7 @@
                     </portc>
                     <portc>
                         <a href="https://www.youtube.com/watch?v=5M6OuZM_Qgg">
-                            <img src="science.png" width="200">
+                            <img id="portrait" src="science.png" alt="Portrait" width="200">
                         </a>
                         <div class="titc">Science</div>
                     </portc>
@@ -74,9 +74,10 @@
                         <div class="titc">Watersill</div>
                     </portc>
                 </div>
-                <p style="text-align: right; font-size: small; color: rgb(116, 43, 226); font-family: 'Courier New', Courier, monospace;">v1.1.0</p>
+                <p style="text-align: right; font-size: small; color: rgb(116, 43, 226); font-family: 'Courier New', Courier, monospace;">v1.1.1</p>
             </div>
         </div>
+        <audio id="easterSound" src="623.opus"></audio>
         <script>
             const amb = new Audio('realm.opus');
             setTimeout( () => {
@@ -109,6 +110,22 @@
                     e.style.animation = `${d} ${l}s linear infinite, ${c} ${l}s linear infinite`
                 })
             });
+
+            const portrait = document.getElementById("portrait");
+            const easterSound = document.getElementById("easterSound");
+
+            // 623 seconds of inactivity
+            const idleTime = 623000;
+
+            let easterTimer = setTimeout(triggerEasterEgg, idleTime);
+
+            function triggerEasterEgg() {
+                // Swap image
+                portrait.src = "623.png";
+
+                // Play sound
+                easterSound.play();
+            }
         </script>
     </body>
 </html>

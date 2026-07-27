@@ -24,15 +24,10 @@
             const params = new URLSearchParams(window.location.search);
             const imageType = params.get("image");
 
-            if (imageType === "found") {
-                document.cookie = "imageChoice=found; path=/; max-age=31536000";
-            }
-
             // Read cookie
-            const cookieMatch = document.cookie.match(/imageChoice=([^;]+)/);
-            const savedChoice = cookieMatch ? cookieMatch[1] : null;
+            const found = document.cookie.match(/imageChoice=found/);
 
-            if (savedChoice === "found") {
+            if (found) {
                 img.src = "foundjohn.jpg";
             }
             else {

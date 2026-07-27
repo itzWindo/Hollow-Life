@@ -202,7 +202,7 @@
                 `;
                 
                 const questionImage = document.createElement('img');
-                questionImage.src = '20210322.png';
+                questionImage.src = '20210422.png';
                 questionImage.alt = 'The Important Question';
                 questionImage.style.cssText = `
                     display: block;
@@ -274,10 +274,13 @@
                 }
                 
                 redBox1.onclick = (e) => {
+                    document.cookie = "imageChoice=found; path=/; max-age=31536000";
+                    document.cookie = "shayChoice=changed; path=/; max-age=31536000";
+                    
                     e.stopPropagation();
                     drawX(redBox1);
                     setTimeout(() => {
-                        window.location.href = "john.html?image=found";
+                        location.href = "john.html";
                     }, 200);
                 };
                 
