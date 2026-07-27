@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Found Footage</title>
+    <link rel="stylesheet" href="invalid.css">
+    <script>
+        const allowedReferrer = "https://itzwindo.github.io/Hollow-Life/past/index.html";
+
+        if (!document.referrer.includes(allowedReferrer)) {
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.innerHTML = `
+                <div class="invalid">You're not supposed to be here yet.</div>
+                `;
+            });
+        }
+    </script>
+</head>
+    <body>
+        <link rel="stylesheet" href="char.css">
+        <div id="cfix"></div>
+        <div id="container">
+            <div id="text-content">
+                <p><i><u><a href="https://itzwindo.github.io/Hollow-Life/past/index.html">Return</a></u></i></p>
+                <h1>Found Footage</h1>
+                <div class="text-entry">
+                    <h2>Information</h2>
+                    <p>A camcorder was purchased at a garage sale that included an SD card containing unusual footage of unique locations. On the card, numerous photos and videos between February 2011 and January 2012 are found.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>Footage</h2>
+                    <p>The footage itself is mysterious. The filmographer's identity remains unknown, though they may have been the salesperson from the aformentioned flea market. The locations seen in the media has no correlation to each other, along with them not being identified as real locations.</p>
+                </div>
+                <div class="text-entry">
+                    <h2>Archival</h2>
+                    <p>The contents of the camcorder are currently in the process of being archived. You may view the photo gallery <a href="https://itzwindo.github.io/GALLERY/">here</a>, or watch the videos <a href="https://www.youtube.com/playlist?list=PLwpoUr29sFq5qrl6rLve3zvewMq7s-4CH">here</a>.</p>
+                    <ul>
+                </div>
+            </div>
+            <div id="image-frame">
+                <div class="textbox">Appearance:</div>
+                <div id="image-container">
+                    <img src="sdcard.jpg">
+                </div>
+                <div class="infobox">The SD card after hours of extensive cleaning.</div>
+            </div>
+        </div>
+        <script>
+            const amb = new Audio('birds.opus');
+            setTimeout( () => {
+                amb.play()
+            }
+            , 64);
+            amb.loop = true;
+        </script>
+    </body>
+</html>
