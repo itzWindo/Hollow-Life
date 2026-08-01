@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I miss you.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .background {
+            position: fixed;
+            width: 140%;
+            height: 140%;
+            background-color: black;
+        }
+
+        .content {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            perspective: 1500px;
+        }
+
+        .letter-container {
+            opacity: 0;
+            transform: translateY(50px) translateZ(0) rotateX(8deg);
+            animation: gentleReveal 1.2s ease-out 0.5s forwards;
+            position: relative;
+            overflow-y: auto;
+            will-change: transform, opacity;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes gentleReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) translateZ(0) rotateX(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="content">
+        <div class="letter-container">
+              <img src="blackberry.jpg" title="I lost everything I love." height="700px">
+        </div>
+    </div>
+    <script>
+        const amb = new Audio('untitled.opus');
+            amb.loop = true;
+            setTimeout( () => {
+                amb.play()
+            }
+        , 256)
+
+        let isTransitioning = false;
+
+        history.pushState(null,null,location.href)
+        window.onpopstate=function(){
+            document.title = "Why are you abandoning me?";
+            history.go(1);
+        }
+
+        function enterFullscreen() {
+            const htmlElement = document.documentElement;
+            if (htmlElement.requestFullscreen) {
+                htmlElement.requestFullscreen();
+            }
+            else if (htmlElement.mozRequestFullScreen) {
+                htmlElement.mozRequestFullScreen();
+            }
+            else if (htmlElement.webkitRequestFullscreen) {
+                htmlElement.webkitRequestFullscreen();
+            }
+            else if (htmlElement.msRequestFullscreen) {
+                htmlElement.msRequestFullscreen(); 
+            }}
+
+        document.addEventListener('mousemove', function(event) {
+            const mouseX = event.clientX; const mouseY = event.clientY; const windowWidth = window.innerWidth; const windowHeight = window.innerHeight;
+            if (mouseX <= 130 && mouseY <= 130) {
+                enterFullscreen();
+            } 
+            else if (mouseX >= windowWidth - 120 && mouseY <= 120) {
+                enterFullscreen();
+            } 
+            else if (mouseX <= 10 || mouseX >= windowWidth || mouseY <= 10 || mouseY >= windowHeight) {
+                enterFullscreen();
+            }
+        })
+
+        document.addEventListener("fullscreenchange", () => {
+            if (!document.fullscreenElement) {
+                document.title = "Please don't leave me too.";
+            }
+        });
+    </script>
+</body>
+</html>
