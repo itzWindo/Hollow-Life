@@ -1,0 +1,128 @@
+@charset "shift_jis";
+
+div#container {
+	width: 750px;
+	background-color: #FFFFFF;
+	margin-right: auto;
+	margin-left: auto;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+}
+
+div#headerBlock {
+	width: 750px;
+	float : none;
+	background-color: #FFFFFF;
+	margin: 0px;
+	padding: 0px 0px 0px;
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #CCCCCC;
+}
+
+div#newsBlock {
+	float: left;
+	text-align: left;
+	width : 548px;
+	margin: 0;
+	padding: 0;
+	background-color: #FFFFFF;
+	border-right-width : 1px;
+	border-right-style : dotted;
+	border-right-color : #bbbbbb;
+}
+
+div#migiBlock {
+	float: left;
+	text-align :center;
+	width: 200px;
+	margin: 0;
+	padding: 0;
+	background-color : #ffffff;
+}
+
+.clicked-cursor {
+	cursor: url('kiwi.png'), auto !important;
+}
+
+.clicked-cursor2 {
+	cursor: url('neko.png'), auto !important;
+}
+
+div#footerBlock {
+	width: 750px;
+	color: #FFFFFF;
+	background-image: url(gradient.jpg);
+	margin: 0;
+	padding: 0;
+	background-color: #0033CC;
+	clear: both;
+}
+
+
+body {
+	width: 100%;
+	line-height: 130%;
+	text-align: center;
+	color: #333333;
+	background:url(bg.gif);
+	margin: 0px;
+	padding: 0px;
+	background-color: #FFFFFF;
+}
+
+h1 {
+	font-size : 24px;
+	margin : 3px 0px;
+	padding : 3px 3px 3px;
+	text-align: center;
+	border-style: outset;
+	border-color: #8086ff;
+	border-width: 2px;
+	color : #f4f8ff;
+	background-image: url(gradient.jpg);
+}
+
+h3 {
+	font-size : 100%;
+	margin : 3px 0px;
+	padding : 3px 3px 3px;
+	text-align: left;
+	border : dotted;
+	border-color : #8086ff;
+	border-width : 1px;
+	color : #5b76ff;
+	background-color : #f4f8ff;
+	font-style : normal;
+	font-weight : normal;
+}
+
+img {
+	border: none;
+	vertical-align: bottom;
+	image-rendering: pixelated;
+}
+
+table {
+	margin : 2px auto;
+	margin-bottom : 2px;
+	margin-left : auto;
+	padding: 0px;
+	width: 95%;
+	border-collapse:collapse;
+	border: 1px solid #333333;
+}
+
+td {
+	font-size: 80%;
+	margin: 3px;
+	padding: 3px;
+	border: 1px solid #333333;
+	color: #333333;
+	text-align: left;
+	line-height: 150%;
+}
