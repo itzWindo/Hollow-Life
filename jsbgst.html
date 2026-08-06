@@ -62,19 +62,19 @@
             const destinations = {
                 "2012-03-22": "past/index.html",
                 "2019-12-14": "past/science-blog.html",
-                "2022-03-22": "https://itzwindo.github.io/Hollow-Life/index.html"
+                "2022-03-22": "index.html"
             };
             
-            let currentIndex = 3;
-            let currentDate = dates[currentIndex];
+            let currentList = 3;
+            let currentDate = dates[currentList];
 
             toggleBtn.onclick = () => {
-                currentIndex++;
-                if (currentIndex >= dates.length) {
-                    currentIndex = 0
+                currentList++;
+                if (currentList >= dates.length) {
+                    currentList = 0
                 }
 
-                currentDate = dates[currentIndex];
+                currentDate = dates[currentList];
                 display.textContent = currentDate;
             };
 
