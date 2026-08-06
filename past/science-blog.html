@@ -5,6 +5,18 @@
     <meta name="JM20190601.">
     <title>Science | Jim's Kerby</title>
     <link rel="stylesheet" href="science.css">
+    <script>
+        const allowedReferrer = ["https://itzwindo.github.io/Hollow-Life/jsbgst.html"];
+        const isAllowed = allowedReferrer.some(url => document.referrer.includes(url));
+
+        if (!isAllowed) {
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.innerHTML = `
+                <div class="invalid">You're not supposed to be here yet.</div>
+                `;
+            });
+        }
+    </script>
 </head>
 <html lang="en">
     <style>
