@@ -53,19 +53,28 @@
         </div>
 
         <script>
+            const dates = [
+                "2012-03-22",
+                "2019-12-14",
+                "2022-03-22"
+            ]
+
             const destinations = {
                 "2012-03-22": "past/index.html",
+                "2019-12-14": "past/science-blog.html",
                 "2022-03-22": "index.html"
             };
-
-            let currentDate = "2022-03-22";
+            
+            let currentIndex = 3;
+            let currentDate = dates[currentIndex];
 
             toggleBtn.onclick = () => {
-                currentDate =
-                    currentDate === "2022-03-22"
-                        ? "2012-03-22"
-                        : "2022-03-22";
+                currentIndex++;
+                if (currentIndex >= dates.length) {
+                    currentIndex = 0
+                }
 
+                currentDate = dates[currentIndex];
                 display.textContent = currentDate;
             };
 
