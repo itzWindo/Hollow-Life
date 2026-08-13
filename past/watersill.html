@@ -2,16 +2,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Watersill</title>
-    <link rel="stylesheet" href="invalid.css">
     <script>
-        const allowedReferrer = "https://itzwindo.github.io/Hollow-Life/past/index.html";
+        const hasAccess = document.cookie.includes("tmprlLk=true");
 
-        if (!document.referrer.includes(allowedReferrer)) {
-            document.addEventListener("DOMContentLoaded", () => {
-                document.body.innerHTML = `
-                <div class="invalid">You're not supposed to be here yet.</div>
-                `;
-            });
+        if (!hasAccess) {
+            window.location.href = "https://itzwindo.github.io/Hollow-Life/index.html"
         }
     </script>
 </head>
