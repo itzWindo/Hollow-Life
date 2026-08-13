@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0">
     <title>...</title>
     <style>
         @font-face {
@@ -41,7 +41,7 @@
             margin: 5px;
             padding: 10px 20px;
             background-color: black;
-            box-shadow: outset 0 2px 13px rgb(255, 0, 0)
+            box-shadow: outset 0 2px 13px red
         }
     </style>
 </head>
@@ -78,6 +78,8 @@
             };
 
             travelBtn.onclick = () => {
+                document.cookie = "tmprlLk=true; path=/past";
+                
                 window.location.href = destinations[currentDate];
             };
         </script>

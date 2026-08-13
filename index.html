@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.svg">
     <meta charset="UTF-8">
     <title>Characters</title>
     <link rel="stylesheet" href="nav.css">
@@ -38,7 +38,7 @@
                         <div class="titc">Blackberry</div>
                     </portc>
                     <portc>
-                        <a href="character/ginger.html">
+                        <a href="ginger.html">
                             <img src="ginger.png">
                         </a>
                         <div class="titc">Ginger</div>
@@ -74,7 +74,7 @@
                         <div class="titc">Watersill</div>
                     </portc>
                 </div>
-                <p style="text-align: right; font-size: small; color: rgb(116, 43, 226); font-family: 'Courier New', Courier, monospace;" onclick="window.open('changelog.html', 'Changelog', 'width=628, height=256, location=no')">v1.2.0</p>
+                <p style="text-align: right; font-size: small; color: rgb(116, 43, 226); font-family: 'Courier New', Courier, monospace;" onclick="window.open('changelog.html', 'Changelog', 'width=628, height=256, location=no')">v1.2.1</p>
             </div>
         </div>
         <audio id="easterSound" src="623.opus"></audio>
@@ -126,6 +126,8 @@
                 // Play sound
                 easterSound.play();
             }
+
+            document.cookie = "tmprlLk=; path=/past; max-age=0";
         </script>
     </body>
 </html>
