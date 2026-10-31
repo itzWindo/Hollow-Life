@@ -112,7 +112,7 @@
 
             travelBtn.onclick = () => {
                 playClock();
-                document.cookie = "tmprlLk=true; path=../past";
+                document.cookie = "tmprlLk=true; path=/; max-age=1800";
 
                 setTimeout(() => {
                     window.location.href = destinations[currentDate];
