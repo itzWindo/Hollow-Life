@@ -1,33 +1,20 @@
 <!DOCTYPE html>
 <head>
+    <link rel="icon" type="image/x-icon" href="../favicon.svg">
     <meta charset="UTF-8">
     <title>The Great Siphoning</title>
-</head>
-<script>
-    document.querySelectorAll("nav a.cat").forEach(e => {
-        let t = e.getAttribute("href").replace(/\/+$/, "");
-        t === location.pathname.replace(/\/+$/, "") && (e.id = "currentcat")
-    }
-    );
-    document.addEventListener("DOMContentLoaded", () => {
-        const _Cf = localStorage.getItem("header_color");
-        _Cf && _Ff[_Cf] && document.querySelector("header") && (document.querySelector("header").style.filter = _Ff[_Cf])
-    }
-    );
-</script>
-<!DOCTYPE html>
-<html lang="en">
-    <meta charset="UTF-8">
     <link rel="stylesheet" href="char.css">
+</head>
+<html lang="en">
     <body>
         <div id="cfix"></div>
         <div id="container">
             <div id="text-content">
-                <p><i><u><a href="https://itzwindo.github.io/Hollow-Life/index.html">Return</a></u></i></p>
+                <p><i><u><a href="../index.html">Return</a></u></i></p>
                 <h1>The Great Siphoning</h1>
                 <div class="text-entry">
                     <h2>Description</h2>
-                    <p>The Great Siphoning event occurred in April, 2021, where this universe was siphoned of its energy and resources by an <i>Unknown Entity</i>. All the catastrophes that had befallen everywhere were a result of this universe-scale event.</p>
+                    <p>The Great Siphoning event occurred on April 30, 2021, where this universe was siphoned of its energy and resources by an <i>Unknown Entity</i>. All the catastrophes that had befallen everywhere were a result of this universe-scale event.</p>
                 </div>
                 <div class="text-entry">
                     <h2>History</h2>
@@ -44,7 +31,7 @@
                     <button style="width:100%">Last photograph</button>
                 </div>
                 <div id="image-container">
-                    <img src="https://itzwindo.github.io/Hollow-Life/siphon.jpg">
+                    <img src="../siphon.jpg">
                 </div>
                 <div class="infobox">A tendril approaches.</div>
             </div>

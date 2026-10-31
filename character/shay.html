@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+    <link rel="icon" type="image/x-icon" href="../favicon.svg">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="char.css">
     <title>Shay</title>
@@ -9,7 +10,7 @@
         <div id="cfix"></div>
         <div id="container">
             <div id="text-content">
-                <p><i><u><a href="https://itzwindo.github.io/Hollow-Life/index.html">Return</a></u></i></p>
+                <p><i><u><a href="../index.html">Return</a></u></i></p>
                 <h1>Shay</h1>
                 <div class="text-entry">
                     <h2 id="desc1">Description</h2>
@@ -17,7 +18,7 @@
                 </div>
                 <div class="text-entry">
                     <h2 id="desc2">Occupation</h2>
-                    <p id="par2">After graduating from college, she focused solely on producing music for the world and spending her time with her <a href="https://itzwindo.github.io/Hollow-Life/letter.html">now-deceased partner.</a></p>
+                    <p id="par2">After graduating from college, she focused solely on producing music for the world and spending her time with her <a href="../letter.html">now-deceased partner.</a></p>
                 </div>
                 <div class="text-entry">
                     <h2 id="desc3">Whereabouts</h2>
@@ -55,7 +56,7 @@
                         'She must be heartbroken after her partner was ruthlessly murdered by yours truly. If only I could see her drown in her own tears.';
 
                         document.getElementById("desc3").textContent =
-                        "???.";
+                        "???";
 
                         document.getElementById("par3").textContent =
                         "I will find her.";
@@ -89,7 +90,7 @@
                 ];
 
                 if (changed) {
-                    lvl[1].src = "august.jpg";
+                    lvl[1].src = "augustus.jpg";
                     lvl[1].desc = "Look what you made me do.";
                 }
 
@@ -101,7 +102,8 @@
                         buttons.querySelectorAll("button").forEach(e => e.classList.remove("pressed")),
                         s.classList.add("pressed"),
                         char.src = e.src,
-                        desc.innerHTML = e.desc || desc.innerHTML
+                        desc.innerHTML = e.desc || desc.innerHTML;
+                        char.dataset.appearance = e.label;
                         
                         if (changed && e.label === "Alternate") {
                             if (e.label === "Alternate") {
@@ -114,6 +116,11 @@
                     0 === t && s.click()
                 }
                 )
+                char.addEventListener("click", () => {
+                    if (changed && char.dataset.appearance === "Alternate") {
+                        window.location.href = "../crt.html";
+                    }
+                });
             </script>
         </div>
     </body>
