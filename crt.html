@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/x-icon" href="favicon.svg">
+		<title>CRT</title>
+		<link rel="stylesheet" href="crt.css">
+		<script src="crt.js" defer></script>
+		<script src="inventory.js" defer></script>
+	</head>
+	<body>
+		<div class="crt-case">
+			<div class="crt-screen-container" id="crtScreen">
+				<div class="crt-effects"></div>
+				<div class="screen-content" id="screenContent">
+					<p class="boot-msg" id="screenMessage">
+					WATERSILL CARTRIDGE PLAYER<br>
+					Version 2.1 (C)Copyright Watersill Technologies, 1966<br>
+						<span style="font-size: 0.8rem; opacity: 0.7;">
+						[ AWAITING INPUT ]
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="monitor-controls">
+				<div class="brand-logo">WATERSILL TECHNOLOGIES®</div>
+				<div class="power-section">
+					<div class="power-led on" id="powerLed"></div>
+					<button class="power-btn" id="powerBtn" title="Power Switch"></button>
+				</div>
+			</div>
+		</div>
+		<div id="inventory-container">
+			<h3>INVENTORY</h3>
+			<div id="inventory-grid">
+				<!-- Item slots will dynamically appear here -->
+			</div>
+		</div>
+		<style>
+			#inventory-container {
+				position: fixed;
+				bottom: 20px;
+				left: 20px;
+				background: rgba(19, 17, 22, 0.85);
+				border: solid #6f09d4;
+				padding: 12px;
+				width: 220px;
+				box-shadow: 0 0 15px rgba(180, 51, 255, 0.2);
+				font-family: 'Franklin Gothic','Arial Narrow';
+				z-index: 1000;
+			}
+
+			#inventory-container h3 {
+				font-size: 0.85rem;
+				color: #d779ff;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				margin-bottom: 8px;
+				text-align: center;
+				border-bottom: 1px dashed #8c00dd;
+				padding-bottom: 4px;
+			}
+
+			#inventory-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 8px;
+				min-height: 50px;
+			}
+
+			.inv-slot {
+				width: 100%;
+				aspect-ratio: 1 / 1;
+				background-color: #0f0d11;
+				border: 1px solid #312b36;
+				border-radius: 4px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+				cursor: pointer;
+			}
+
+			.inv-slot img {
+				max-width: 80%;
+				max-height: 80%;
+				object-fit: contain;
+			}
+
+			.inv-slot:hover::after {
+				content: attr(data-item-name);
+				position: absolute;
+				bottom: 110%;
+				left: 50%;
+				transform: translateX(-50%);
+				background: #000;
+				color: #ffffff;
+				padding: 3px 6px;
+				font-size: 0.65rem;
+				white-space: nowrap;
+				border: 1px solid #ffffff;
+				border-radius: 3px;
+				pointer-events: none;
+				z-index: 10;
+			}
+		</style>
+		<script>
+			const amb = new Audio('crickets.opus');
+				setTimeout( () => {
+					amb.play()
+				}
+				, 64);
+			amb.loop = true;
+		</script>
+	</body>
+</html>

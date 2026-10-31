@@ -1,0 +1,176 @@
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+@font-face {
+	font-family: 'Retro';
+	src: url('VT323.ttf') format('truetype');
+}
+
+body {
+	background-color: #000000;
+	color: #fefffe;
+	font-family: 'Retro';
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	opacity: 0;
+	animation: fadeInPage 1.5s ease-in forwards;
+}
+
+/* CRT Monitor Outer Case / Bezel */
+.crt-case {
+	position: relative;
+	background: linear-gradient(145deg, #19141d, #000000);
+	border: 4px solid #000000;
+	border-radius: 10px;
+	padding: 35px 35px 50px 35px;
+	box-shadow: 
+		0 20px 50px rgba(0, 0, 0, 0.9),
+		inset 0 2px 4px rgba(0, 0, 0, 0.1),
+		inset 0 -5px 10px rgba(0, 0, 0, 0.8);
+	max-width: 800px;
+	width: 90vw;
+}
+
+/* CRT Display Screen Frame */
+.crt-screen-container {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	background-color: #1c1920;
+	border-radius: 20px;
+	overflow: hidden;
+	border: 12px solid #0f0e10;
+	box-shadow: 
+		inset 0 0 40px rgba(0, 0, 0, 0.9),
+		0 0 15px rgba(70, 70, 70, 0.15);
+	cursor: none;
+}
+
+/* Active Game Viewport (iframe wrapper) */
+.screen-content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 20px;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.screen-content iframe {
+	width: 100%;
+	height: 100%;
+	border: none;
+	background-color: transparent;
+}
+
+.boot-msg {
+	font-size: 1.2rem;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: #ffffff;
+	text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+	user-select: none;
+	line-height: 1.6;
+}
+
+/* CRT Visual Effects Layer */
+.crt-effects {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 10;
+	background: linear-gradient(
+		rgba(18, 16, 18, 0) 50%, 
+		rgba(0, 0, 0, 0.35) 50%
+	);
+	background-size: 100% 4px;
+}
+
+/* 2. Glass Bulb Reflection & Glow Vignette */
+.crt-screen-container::after {
+	content: " ";
+	display: block;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	background: 
+		radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.65) 100%),
+		linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 35%);
+	pointer-events: none;
+	z-index: 11;
+}
+
+/* Monitor Control Panel (Bottom Bezel) */
+.monitor-controls {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 18px;
+	padding: 0 10px;
+}
+
+.brand-logo {
+	font-size: 0.85rem;
+	letter-spacing: 3px;
+	color: #242027;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-family: 'Franklin Gothic','Arial Narrow';
+}
+
+.power-section {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.power-led {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #000000;
+	box-shadow: 0 0 8px #000000;
+	transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.power-led.on {
+  background-color: #a333ff;
+  box-shadow: 0 0 8px #a333ff;
+}
+
+.power-btn {
+  width: 32px;
+  height: 16px;
+  background-color: #201c22;
+  border: 2px solid #2a272d;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.power-btn:active {
+  transform: translateY(1px);
+}
+
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

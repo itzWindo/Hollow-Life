@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/x-icon" href="favicon.svg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confession</title>
@@ -23,6 +24,23 @@
             width: 140%;
             height: 140%;
             background-color: black;
+        }
+
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            animation: fade 2s ease-out 1s forwards;
+        }
+
+        @keyframes fade {
+            to {
+                opacity: 0.5;
+            }
         }
 
         @font-face {
@@ -141,6 +159,9 @@
 </head>
 <body>
     <div class="background"></div>
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="static.mp4" type="video/mp4">
+    </video>
     <div class="content">
         <div class="letter-container" id="letterContainer">
           <h1 class="letter-title">My dearest,</h1>
@@ -202,7 +223,7 @@
                 `;
                 
                 const questionImage = document.createElement('img');
-                questionImage.src = '20210422.png';
+                questionImage.src = '20210501.png';
                 questionImage.alt = 'The Important Question';
                 questionImage.style.cssText = `
                     display: block;

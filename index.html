@@ -74,7 +74,7 @@
                         <div class="titc">Watersill</div>
                     </portc>
                 </div>
-                <p style="text-align: right; font-size: small; color: rgb(116, 43, 226); font-family: 'Courier New', Courier, monospace;" onclick="window.open('changelog.html', 'Changelog', 'width=628, height=256, location=no')">v1.2.2</p>
+                <p style="text-align: right; font-size: small; color: rgb(116, 43, 226); font-family: 'Courier New', Courier, monospace;" onclick="window.open('changelog.html', 'Changelog', 'width=628, height=256, location=no')">v1.3.0</p>
             </div>
         </div>
         <audio id="easterSound" src="623.opus"></audio>
@@ -85,30 +85,96 @@
             }
             , 64);
             amb.loop = true;
-            document.addEventListener("DOMContentLoaded", function() {
-                document.querySelectorAll("portc").forEach(function(e) {
-                    e.style.position = "relative",
-                    e.style.left = Math.floor(18 * Math.random()) - 2 + "px",
-                    e.style.top = Math.floor(64 * Math.random()) - 2 + "px";
-                    for (var t = Math.floor(1 * Math.random()) + 4.5, n = Math.floor(1 * Math.random()) + .5, l = Math.floor(55 * Math.random()) + 6, r = [], o = [], a = 0; a <= t; a++) {
-                        var s = a / t * 256
-                          , i = a % 2 == 0 ? 1 : -7;
-                        r.push(`${s}% { left: ${i}px; }`)
+            document.addEventListener("DOMContentLoaded", () => {
+                const container = document.querySelector(".frameframe");
+                const elements = [...container.querySelectorAll("portc")];
+                const SPEED = 2;
+                const portraits = [];
+
+                function resetPositions() {
+                    portraits.forEach(p => {
+                        p.el.style.transform = "";
+                        p.x = 0;
+                        p.y = 0;
+                    });
+                    const bounds = container.getBoundingClientRect();
+                    portraits.forEach(p => {
+                        const r = p.el.getBoundingClientRect();
+                        p.homeX = r.left - bounds.left;
+                        p.homeY = r.top - bounds.top;
+                        p.width = r.width;
+                        p.height = r.height;
+                    });
+                }
+
+                elements.forEach(el => {
+                    const angle = Math.random() * Math.PI * 2;
+                    portraits.push({
+                        el, x: 0, y: 0,
+                        vx: Math.cos(angle) * SPEED,
+                        vy: Math.sin(angle) * SPEED
+                    });
+                });
+                resetPositions();
+
+                let previous = performance.now();
+                function animate(now) {
+                    const dt = Math.min((now - previous) / 1000, 0.04);
+                    previous = now;
+                    const maxX = container.clientWidth;
+                    const maxY = container.clientHeight;
+
+                    for (const p of portraits) {
+                        p.x += p.vx * dt;
+                        p.y += p.vy * dt;
+                        let left = p.homeX + p.x;
+                        let top = p.homeY + p.y;
+
+                        if (left < 0 || left + p.width > maxX) {
+                            p.vx *= -1;
+                            p.x = Math.max(-p.homeX, Math.min(maxX - p.width - p.homeX, p.x));
+                        }
+                        if (top < 0 || top + p.height > maxY) {
+                            p.vy *= -1;
+                            p.y = Math.max(-p.homeY, Math.min(maxY - p.height - p.homeY, p.y));
+                        }
                     }
-                    for (var a = 0; a <= n; a++) {
-                        var s = a / n * 100
-                          , i = a % 2 == 0 ? 2 : -3;
-                        o.push(`${s}% { top: ${i}px; }`)
+
+                    for (let i = 0; i < portraits.length; i++) {
+                        for (let j = i + 1; j < portraits.length; j++) {
+                            const a = portraits[i], b = portraits[j];
+                            const ax = a.homeX + a.x + a.width / 2;
+                            const ay = a.homeY + a.y + a.height / 2;
+                            const bx = b.homeX + b.x + b.width / 2;
+                            const by = b.homeY + b.y + b.height / 2;
+                            const overlapX = (a.width + b.width) / 2 - Math.abs(bx - ax);
+                            const overlapY = (a.height + b.height) / 2 - Math.abs(by - ay);
+                            if (overlapX <= 0 || overlapY <= 0) continue;
+
+                            const nx = overlapX < overlapY ? (bx >= ax ? 1 : -1) : 0;
+                            const ny = overlapX < overlapY ? 0 : (by >= ay ? 1 : -1);
+                            const overlap = Math.min(overlapX, overlapY);
+                            a.x -= nx * overlap / 2;
+                            a.y -= ny * overlap / 2;
+                            b.x += nx * overlap / 2;
+                            b.y += ny * overlap / 2;
+
+                            const relativeSpeed = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+                            if (relativeSpeed < 0) {
+                                a.vx += relativeSpeed * nx;
+                                a.vy += relativeSpeed * ny;
+                                b.vx -= relativeSpeed * nx;
+                                b.vy -= relativeSpeed * ny;
+                            }
+                        }
                     }
-                    var d = `bounceX-${Math.random().toString(36).substring(7)}`
-                      , c = `bounceY-${Math.random().toString(36).substring(7)}`
-                      , u = `@keyframes ${d} { ${r.join(" ")} }`
-                      , f = `@keyframes ${c} { ${o.join(" ")} }`
-                      , m = document.styleSheets[0];
-                    m.insertRule(u, m.cssRules.length),
-                    m.insertRule(f, m.cssRules.length),
-                    e.style.animation = `${d} ${l}s linear infinite, ${c} ${l}s linear infinite`
-                })
+                    for (const p of portraits) {
+                        p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
+                    }
+                    requestAnimationFrame(animate);
+                }
+                window.addEventListener("resize", resetPositions);
+                requestAnimationFrame(animate);
             });
 
             const portrait = document.getElementById("portrait");
@@ -120,10 +186,8 @@
             let easterTimer = setTimeout(triggerEasterEgg, idleTime);
 
             function triggerEasterEgg() {
-                // Swap image
                 portrait.src = "623.png";
 
-                // Play sound
                 easterSound.play();
             }
         </script>

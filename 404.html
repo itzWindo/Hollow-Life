@@ -1,133 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="icon" type="image/x-icon" href="null-profile.png"
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0">
-    <title>404</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-            perspective: 1000px;
-        }
-
-        .background {
-            position: fixed;
-            width: 140%;
-            height: 140%;
-            background-color: black;
-        }
-
-        @font-face {
-            font-family: 'Anarchy';
-            src: url('Anarchy.ttf') format('truetype');
-        }
-
-        .content {
-            position: relative;
-            z-index: 3;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #ebbbff;
-            text-align: center;
-            padding: 2rem;
-            perspective: 1500px;
-        }
-
-        .container {
-            background: url('wasteland.png');
-            padding: 2rem;
-            max-width: 850px;
-            max-height: 70vh;
-            opacity: 0;
-            transform: translateY(50px) translateZ(0) rotateX(8deg);
-            animation: gentleReveal 1.2s ease-out 0.5s forwards;
-            position: relative;
-            overflow-y: auto;
-            will-change: transform, opacity;
-        }
-
-        @keyframes gentleReveal {
-            to {
-                opacity: 1;
-                transform: translateY(0) translateZ(0) rotateX(0deg);
+    <head>
+        <link rel="icon" type="image/x-icon" href="null-profile.png">
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1.0">
+        <title>404</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
-        }
 
-        .title {
-            font-family: 'Anarchy';
-            font-size: 2.8rem;
-            color: #7e00e6;
-            margin-bottom: 1.5rem;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-        }
+            body {
+                height: 100vh;
+                overflow: hidden;
+                position: relative;
+                perspective: 1000px;
+            }
 
-        .page-content {
-            font-family: 'Anarchy';
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: #9b76df;
-            font-weight: 400;
-            text-align: left;
-            margin-bottom: 2rem;
-        }
-        
-        .page-content p {
-            text-indent: 2em;
-        }
-    </style>
-</head>
-<body>
-    <div class="background"></div>
-    <div class="content">
-        <div class="container">
-          <h1 class="title">404</h1>
-          <div class="page-content">
-              <p>The story you're searching for is not here.</p>
-          </div>
-        </div>
-    </div>
-    <script>
-        let isTransitioning = false;
+            .background {
+                position: fixed;
+                width: 140%;
+                height: 140%;
+                background-color: black;
+            }
 
-        function revealLetter() {
-            const overlay = document.getElementById('blurOverlay');
+            .bg-video {
+                position: fixed;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+                animation: fade 2s ease-out 1s forwards;
+            }
+
+            @keyframes fade {
+                to {
+                    opacity: 0.5;
+                }
+            }
+
+            @font-face {
+                font-family: 'Anarchy';
+                src: url('Anarchy.ttf') format('truetype');
+            }
+
+            .content {
+                position: relative;
+                z-index: 3;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                color: #ebbbff;
+                text-align: center;
+                padding: 2rem;
+                perspective: 1500px;
+            }
+
+            .container {
+                background: url('wasteland.png');
+                padding: 2rem;
+                max-width: 850px;
+                max-height: 70vh;
+                opacity: 0;
+                transform: translateY(50px) translateZ(0) rotateX(8deg);
+                animation: gentleReveal 1.2s ease-out 0.5s forwards;
+                position: relative;
+                overflow-y: auto;
+                will-change: transform, opacity;
+            }
+
+            @keyframes gentleReveal {
+                to {
+                    opacity: 1;
+                    transform: translateY(0) translateZ(0) rotateX(0deg);
+                }
+            }
+
+            .title {
+                font-family: 'Anarchy';
+                font-size: 2.8rem;
+                color: #7e00e6;
+                margin-bottom: 1.5rem;
+                text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            }
+
+            .page-content {
+                font-family: 'Anarchy';
+                font-size: 0.95rem;
+                line-height: 1.8;
+                color: #9b76df;
+                font-weight: 400;
+                text-align: left;
+                margin-bottom: 2rem;
+            }
             
-            overlay.classList.add('hidden');
-        }
+            .page-content p {
+                text-indent: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="background"></div>
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="static.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <div class="container">
+                <h1 class="title">404</h1>
+                <div class="page-content">
+                    <p id="message">The story you're searching for is not here.</p>
+                </div>
+            </div>
+        </div>
+        <script>
+            let isTransitioning = false;
 
-        const path = window.location.pathname;
+            function revealLetter() {
+                const overlay = document.getElementById('blurOverlay');
+                
+                overlay.classList.add('hidden');
+            }
 
-        if (path.endsWith("/entity.html")) {
-            window.location.replace("https://gamebanana.com/mods/431492");
-        }
+            const path = window.location.pathname;
 
-        else if (path.endsWith("/azazal.html")) {
-            window.location.replace("https://itzwindo.github.io/Hollow-Life/character/shay.html");
-        }
+            if (path.endsWith("/entity.html")) {
+                window.location.replace("https://gamebanana.com/mods/431492");
+            }
 
-        else if (path.endsWith("/file01.html")) {
-            window.location.replace("https://itzwindo.github.io/Hollow-Life/character/blackberry.html");
-        }
+            else if (path.endsWith("/azazal.html")) {
+                window.location.replace("https://itzwindo.github.io/Hollow-Life/character/shay.html");
+            }
 
-        else if (path.endsWith("/file02.html")) {
-            window.location.replace("https://windowsgod2.fandom.com/wiki/JPG");
-        }
+            else if (path.endsWith("/file01.html")) {
+                window.location.replace("https://itzwindo.github.io/Hollow-Life/character/blackberry.html");
+            }
 
-        else if (path.endsWith("/justin.html")) {
-            window.location.replace("https://www.youtube.com/@justintheproroblox/");
-        }
-    </script>
-</body>
+            else if (path.endsWith("/file02.html")) {
+                window.location.replace("https://windowsgod2.fandom.com/wiki/JPG");
+            }
+
+            else if (path.endsWith("/justin.html")) {
+                window.location.replace("https://www.youtube.com/@justintheproroblox/");
+            }
+
+            else if (path.endsWith("/falcon.html")) {
+                window.location.replace("https://www.youtube.com/@FalconXWPlays/");
+            }
+
+            else if (path.endsWith("/reason.html")) {
+                window.location.replace("https://windowsgod2.bandcamp.com/album/reasons-of-time");
+            }
+
+            else if (path.includes("shyguy")) {
+                const messageEl = document.getElementById("message");
+                if (messageEl) {
+                    messageEl.textContent = "He has not been here."; 
+                }
+            }
+        </script>
+    </body>
 </html>

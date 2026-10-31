@@ -1,4 +1,5 @@
 <head>
+    <link rel="icon" type="image/x-icon" href="favicon.svg">
     <meta charset="UTF-8">
     <title>He's not here right now...</title>
 </head>
@@ -12,19 +13,17 @@
         }
     </style>
     <body>
-        <div style="width:100vw;height:100vh;top:0;left:0">
+        <div style="width:100vw; height:100vh; top:0; left:0">
             <a href="index.html">
-                <img id="mainImage" src="foundjohn.jpg" style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)">
+                <img id="mainImage" src="foundjohn.jpg" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
             </a>
         </div>
         <script>
             const img = document.getElementById("mainImage");
 
-            // Check URL parameter
             const params = new URLSearchParams(window.location.search);
             const imageType = params.get("image");
 
-            // Read cookie
             const found = document.cookie.match(/imageChoice=found/);
 
             if (found) {
