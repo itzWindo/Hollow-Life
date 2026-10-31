@@ -3,303 +3,298 @@
 	<head>
 	<meta charset="UTF-8">
 	<title>Ping</title>
-	<style>
-		* {
-			box-sizing: border-box;
-			margin: 0;
-			padding: 0;
-		}
+		<style>
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
 
-		@font-face {
-			font-family: 'Retro';
-			src: url('../VT323.ttf') format('truetype');
-		}
-		
-		body {
-		background-color: #000;
-		color: #fff;
-		font-family: 'Retro';
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-		overflow: hidden;
-		}
+			@font-face {
+				font-family: 'Retro';
+				src: url('../VT323.ttf') format('truetype');
+			}
+			
+			body {
+				background-color: #000;
+				color: #fff;
+				font-family: 'Retro';
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				overflow: hidden;
+			}
 
-		#game-container {
-		position: relative;
-		width: 640px;
-		height: 480px;
-		}
+			#game-container {
+				position: relative;
+				width: 640px;
+				height: 480px;
+			}
 
-		canvas {
-		background-color: #000;
-		border: 4px solid #333;
-		display: block;
-		/* CRT scanline overlay effect */
-		background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-		background-size: 100% 4px;
-		}
-
-		/* Screen overlay effect */
-		.crt-overlay {
-		position: absolute;
-		top: 0; left: 0;
-		width: 100%; height: 100%;
-		pointer-events: none;
-		box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.7);
-		}
-	</style>
+			canvas {
+				background-color: #000;
+				border: 4px solid #333;
+				display: block;
+				background-size: 100% 4px;
+			}
+		</style>
 	</head>
 	<body>
+		<div id="game-container">
+			<canvas id="pongCanvas" width="640" height="480"></canvas>
+			<div class="crt-overlay"></div>
+		</div>
+		<script>
+			const canvas = document.getElementById('pongCanvas');
+			const ctx = canvas.getContext('2d');
 
-	<div id="game-container">
-	<canvas id="pongCanvas" width="640" height="480"></canvas>
-	<div class="crt-overlay"></div>
-	</div>
+			// Beeps & blips
+			let audioCtx = null;
 
-	<script>
-		const canvas = document.getElementById('pongCanvas');
-		const ctx = canvas.getContext('2d');
-
-		// --- WEB AUDIO API FOR RETRO BLIPS ---
-		let audioCtx = null;
-
-		function initAudio() {
-			if (!audioCtx) {
-			audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+			function initAudio() {
+				if (!audioCtx) {
+				audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+				}
 			}
-		}
 
-		function playTone(frequency, type, duration) {
-			if (!audioCtx) return;
-			try {
-			const osc = audioCtx.createOscillator();
-			const gain = audioCtx.createGain();
-			osc.type = type || 'square';
-			osc.frequency.value = frequency || 440;
+			function playTone(frequency, type, duration) {
+				if (!audioCtx) return;
+				try {
+				const osc = audioCtx.createOscillator();
+				const gain = audioCtx.createGain();
+				osc.type = type || 'square';
+				osc.frequency.value = frequency || 440;
+				
+				gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+				gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+				
+				osc.connect(gain);
+				gain.connect(audioCtx.destination);
+				
+				osc.start();
+				osc.stop(audioCtx.currentTime + duration);
+				} catch (e) {
+				console.log("Audio play error:", e);
+				}
+			}
+
+			// Game Constants
+			const WINNING_SCORE = 10;
+			const PADDLE_WIDTH = 12;
+			const PADDLE_HEIGHT = 70;
+			const BALL_SIZE = 12;
+
+			// Game State
+			let playerY = canvas.height / 2 - PADDLE_HEIGHT / 2;
+			let aiY = canvas.height / 2 - PADDLE_HEIGHT / 2;
+			let playerScore = 0;
+			let aiScore = 0;
+
+			let ballX = canvas.width / 2;
+			let ballY = canvas.height / 2;
+			let ballSpeedX = 0;
+			let ballSpeedY = 0;
 			
-			gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-			gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-			
-			osc.connect(gain);
-			gain.connect(audioCtx.destination);
-			
-			osc.start();
-			osc.stop(audioCtx.currentTime + duration);
-			} catch (e) {
-			console.log("Audio play error:", e);
-			}
-		}
+			let gameStarted = false;
+			let gameOver = false;
 
-		// Game Constants[cite: 2]
-		const WINNING_SCORE = 10;
-		const PADDLE_WIDTH = 12;
-		const PADDLE_HEIGHT = 70;
-		const BALL_SIZE = 12;
+			const keys = { Up: false, Down: false };
 
-		// Game State[cite: 2]
-		let playerY = canvas.height / 2 - PADDLE_HEIGHT / 2;
-		let aiY = canvas.height / 2 - PADDLE_HEIGHT / 2;
-		let playerScore = 0;
-		let aiScore = 0;
+			window.addEventListener('keydown', (e) => {
+				initAudio();
+				if (e.key === 'ArrowUp') keys.Up = true;
+				if (e.key === 'ArrowDown') keys.Down = true;
+				
+				if (e.key === 'Enter') {
+				if (!gameStarted && !gameOver) {
+					serveBall();
+				} else if (gameOver) {
+					resetGame();
+				}
+				}
+			});
 
-		let ballX = canvas.width / 2;
-		let ballY = canvas.height / 2;
-		let ballSpeedX = 0;
-		let ballSpeedY = 0;
-		
-		let gameStarted = false;
-		let gameOver = false;
+			window.addEventListener('keyup', (e) => {
+				if (e.key === 'ArrowUp') keys.Up = false;
+				if (e.key === 'ArrowDown') keys.Down = false;
+			});
 
-		const keys = { Up: false, Down: false };
-
-		window.addEventListener('keydown', (e) => {
-			initAudio(); // Initialize audio context on first keypress
-			if (e.key === 'ArrowUp') keys.Up = true;
-			if (e.key === 'ArrowDown') keys.Down = true;
-			
-			if (e.key === 'Enter') {
-			if (!gameStarted && !gameOver) {
-				serveBall();
-			} else if (gameOver) {
-				resetGame();
-			}
-			}
-		});
-
-		window.addEventListener('keyup', (e) => {
-			if (e.key === 'ArrowUp') keys.Up = false;
-			if (e.key === 'ArrowDown') keys.Down = false;
-		});
-
-		function serveBall() {
-			gameStarted = true;
-			ballX = canvas.width / 2;
-			ballY = canvas.height / 2;
-			const direction = Math.random() > 0.5 ? 1 : -1;
-			ballSpeedX = direction * 5;
-			ballSpeedY = (Math.random() * 6) - 3;
-			playTone(300, 'triangle', 0.1); // Serve sound
-		}
-
-		function resetGame() {
-			playerScore = 0;
-			aiScore = 0;
-			gameOver = false;
-			gameStarted = false;
-			ballSpeedX = 0;
-			ballSpeedY = 0;
-			ballX = canvas.width / 2;
-			ballY = canvas.height / 2;
-		}
-
-		// --- GRANT CD ITEM REWARD UPON VICTORY ---
-		function grantItemReward() {
-			const cdItem = {
-			id: 'item_cd',
-			name: 'Audio CD',
-			image: 'cd.png', // Displays cd.png in inventory
-			type: 'item',
-			description: 'A compact disc containing encrypted audio files.'
-			};
-
-			// Send message to parent window (crt.html) to add it to the inventory
-			window.parent.postMessage({
-			type: 'ARG_ITEM_UNLOCKED',
-			item: cdItem
-			}, '*');
-		}
-
-		function update() {
-			if (!gameStarted || gameOver) return;
-
-			if (keys.Up && playerY > 0) playerY -= 6;
-			if (keys.Down && playerY < canvas.height - PADDLE_HEIGHT) playerY += 6;
-
-			const aiCenter = aiY + PADDLE_HEIGHT / 2;
-			if (aiCenter < ballY - 15 && aiY < canvas.height - PADDLE_HEIGHT) {
-			aiY += 4.5;
-			} else if (aiCenter > ballY + 15 && aiY > 0) {
-			aiY -= 4.5;
+			function serveBall() {
+				gameStarted = true;
+				ballX = canvas.width / 2;
+				ballY = canvas.height / 2;
+				const direction = Math.random() > 0.5 ? 1 : -1;
+				ballSpeedX = direction * 5;
+				ballSpeedY = (Math.random() * 6) - 3;
+				playTone(300, 'triangle', 0.1); // Serve sound
 			}
 
-			ballX += ballSpeedX;
-			ballY += ballSpeedY;
-
-			// Bounce Top / Bottom Wall (Play low blip)
-			if (ballY <= 0 || ballY >= canvas.height - BALL_SIZE) {
-			ballSpeedY = -ballSpeedY;
-			playTone(180, 'square', 0.05); 
+			function resetGame() {
+				playerScore = 0;
+				aiScore = 0;
+				gameOver = false;
+				gameStarted = false;
+				ballSpeedX = 0;
+				ballSpeedY = 0;
+				ballX = canvas.width / 2;
+				ballY = canvas.height / 2;
 			}
 
-			// Player Collision (Left side - Play higher paddle hit blip)
-			if (ballX <= PADDLE_WIDTH + 10) {
-			if (ballY + BALL_SIZE >= playerY && ballY <= playerY + PADDLE_HEIGHT) {
-				ballSpeedX = -ballSpeedX * 1.05;
-				let deltaY = ballY - (playerY + PADDLE_HEIGHT / 2);
-				ballSpeedY = deltaY * 0.2;
-				playTone(440, 'square', 0.08);
-			} else if (ballX <= 0) {
-				aiScore++;
-				playTone(100, 'sawtooth', 0.2); // Score loss sound
-				checkWinCondition();
-			}
-			}
+			// CD function
+			function grantItemReward() {
+				const cdItem = {
+				id: 'item_cd',
+				name: 'Audio CD',
+				image: 'cd.png',
+				type: 'item',
+				description: 'A compact disc containing encrypted audio files.'
+				};
 
-			// AI Collision (Right side)
-			if (ballX >= canvas.width - PADDLE_WIDTH - BALL_SIZE - 10) {
-			if (ballY + BALL_SIZE >= aiY && ballY <= aiY + PADDLE_HEIGHT) {
-				ballSpeedX = -ballSpeedX * 1.05;
-				let deltaY = ballY - (aiY + PADDLE_HEIGHT / 2);
-				ballSpeedY = deltaY * 0.2;
-				playTone(440, 'square', 0.08);
-			} else if (ballX >= canvas.width) {
-				playerScore++;
-				playTone(600, 'triangle', 0.2); // Point scored sound
-				checkWinCondition();
-			}
-			}
-		}
-
-		function checkWinCondition() {
-			if (playerScore >= WINNING_SCORE) {
-			gameOver = true;
-			grantItemReward(); // Triggers the CD reward!
-			} else if (aiScore >= WINNING_SCORE) {
-			gameOver = true;
-			} else {
-			gameStarted = false;
-			ballX = canvas.width / 2;
-			ballY = canvas.height / 2;
-			}
-		}
-
-		// (Keep your existing drawDottedLine, render, and gameLoop functions below...)
-		function drawDottedLine() {
-			ctx.setLineDash([10, 10]);
-			ctx.beginPath();
-			ctx.moveTo(canvas.width / 2, 0);
-			ctx.lineTo(canvas.width / 2, canvas.height);
-			ctx.strokeStyle = '#555';
-			ctx.lineWidth = 4;
-			ctx.stroke();
-			ctx.setLineDash([]);
-		}
-
-		function render() {
-			ctx.fillStyle = '#000';
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
-			drawDottedLine();
-
-			ctx.fillStyle = '#fff';
-			ctx.font = '48px "Retro", monospace';
-			ctx.fillText(playerScore, canvas.width / 4, 50);
-			ctx.fillText(aiScore, (3 * canvas.width) / 4, 50);
-
-			ctx.fillRect(10, playerY, PADDLE_WIDTH, PADDLE_HEIGHT);
-			ctx.fillRect(canvas.width - PADDLE_WIDTH - 10, aiY, PADDLE_WIDTH, PADDLE_HEIGHT);
-
-			if (gameStarted) {
-			ctx.fillRect(ballX, ballY, BALL_SIZE, BALL_SIZE);
+				window.parent.postMessage({
+				type: 'ARG_ITEM_UNLOCKED',
+				item: cdItem
+				}, '*');
 			}
 
-			if (!gameStarted && !gameOver) {
-			ctx.fillStyle = '#ff0';
-			ctx.font = '20px "Retro", monospace';
-			ctx.textAlign = 'center';
-			ctx.fillText('PRESS ENTER TO SERVE', canvas.width / 2, canvas.height / 2 + 50);
-			ctx.textAlign = 'left';
+			function update(dtFactor) {
+				if (!gameStarted || gameOver) return;
+
+				if (keys.Up && playerY > 0) playerY -= 6 * dtFactor;
+				if (keys.Down && playerY < canvas.height - PADDLE_HEIGHT) playerY += 6 * dtFactor;
+
+				const aiCenter = aiY + PADDLE_HEIGHT / 2;
+				if (aiCenter < ballY - 15 && aiY < canvas.height - PADDLE_HEIGHT) {
+					aiY += 4.5 * dtFactor;
+				} else if (aiCenter > ballY + 15 && aiY > 0) {
+					aiY -= 4.5 * dtFactor;
+				}
+
+				ballX += ballSpeedX * dtFactor;
+				ballY += ballSpeedY * dtFactor;
+
+				if (ballY <= 0 || ballY >= canvas.height - BALL_SIZE) {
+					ballSpeedY = -ballSpeedY;
+					playTone(180, 'square', 0.05); 
+				}
+
+				if (ballX <= PADDLE_WIDTH + 10) {
+					if (ballY + BALL_SIZE >= playerY && ballY <= playerY + PADDLE_HEIGHT) {
+						ballSpeedX = -ballSpeedX * 1.05;
+						let deltaY = ballY - (playerY + PADDLE_HEIGHT / 2);
+						ballSpeedY = deltaY * 0.2;
+						playTone(440, 'square', 0.08);
+					} else if (ballX <= 0) {
+						aiScore++;
+						playTone(100, 'sawtooth', 0.2);
+						checkWinCondition();
+					}
+				}
+
+				if (ballX >= canvas.width - PADDLE_WIDTH - BALL_SIZE - 10) {
+					if (ballY + BALL_SIZE >= aiY && ballY <= aiY + PADDLE_HEIGHT) {
+						ballSpeedX = -ballSpeedX * 1.05;
+						let deltaY = ballY - (aiY + PADDLE_HEIGHT / 2);
+						ballSpeedY = deltaY * 0.2;
+						playTone(440, 'square', 0.08);
+					} else if (ballX >= canvas.width) {
+						playerScore++;
+						playTone(600, 'triangle', 0.2);
+						checkWinCondition();
+					}
+				}
 			}
 
-			if (gameOver) {
-			ctx.textAlign = 'center';
-			if (playerScore >= WINNING_SCORE) {
-				ctx.fillStyle = '#0f0';
-				ctx.font = '24px "Retro", monospace';
-				ctx.fillText('VICTORY!', canvas.width / 2, canvas.height / 2 - 20);
+			function checkWinCondition() {
+				if (playerScore >= WINNING_SCORE) {
+				gameOver = true;
+				grantItemReward();
+				} else if (aiScore >= WINNING_SCORE) {
+				gameOver = true;
+				} else {
+				gameStarted = false;
+				ballX = canvas.width / 2;
+				ballY = canvas.height / 2;
+				}
+			}
+
+			// The everything else
+			function drawDottedLine() {
+				ctx.setLineDash([10, 10]);
+				ctx.beginPath();
+				ctx.moveTo(canvas.width / 2, 0);
+				ctx.lineTo(canvas.width / 2, canvas.height);
+				ctx.strokeStyle = '#555';
+				ctx.lineWidth = 4;
+				ctx.stroke();
+				ctx.setLineDash([]);
+			}
+
+			function render() {
+				ctx.fillStyle = '#000';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				drawDottedLine();
+
 				ctx.fillStyle = '#fff';
-				ctx.font = '16px "Retro", monospace';
-				ctx.fillText('ITEM OBTAINED: CD', canvas.width / 2, canvas.height / 2 + 20);
-			} else {
-				ctx.fillStyle = '#f00';
-				ctx.font = '24px "Retro", monospace';
-				ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 20);
-				ctx.fillStyle = '#fff';
-				ctx.font = '16px "Retro", monospace';
-				ctx.fillText('PRESS ENTER TO RETRY', canvas.width / 2, canvas.height / 2 + 20);
-			}
-			ctx.textAlign = 'left';
-			}
-		}
+				ctx.font = '48px "Retro", monospace';
+				ctx.fillText(playerScore, canvas.width / 4, 50);
+				ctx.fillText(aiScore, (3 * canvas.width) / 4, 50);
 
-		function gameLoop() {
-			update();
-			render();
+				ctx.fillRect(10, playerY, PADDLE_WIDTH, PADDLE_HEIGHT);
+				ctx.fillRect(canvas.width - PADDLE_WIDTH - 10, aiY, PADDLE_WIDTH, PADDLE_HEIGHT);
+
+				if (gameStarted) {
+				ctx.fillRect(ballX, ballY, BALL_SIZE, BALL_SIZE);
+				}
+
+				if (!gameStarted && !gameOver) {
+				ctx.fillStyle = '#ff0';
+				ctx.font = '20px "Retro", monospace';
+				ctx.textAlign = 'center';
+				ctx.fillText('PRESS ENTER TO SERVE', canvas.width / 2, canvas.height / 2 + 50);
+				ctx.textAlign = 'left';
+				}
+
+				if (gameOver) {
+				ctx.textAlign = 'center';
+				if (playerScore >= WINNING_SCORE) {
+					ctx.fillStyle = '#0f0';
+					ctx.font = '24px "Retro", monospace';
+					ctx.fillText('VICTORY!', canvas.width / 2, canvas.height / 2 - 20);
+					ctx.fillStyle = '#fff';
+					ctx.font = '16px "Retro", monospace';
+					ctx.fillText('ITEM OBTAINED: CD', canvas.width / 2, canvas.height / 2 + 20);
+				} else {
+					ctx.fillStyle = '#f00';
+					ctx.font = '24px "Retro", monospace';
+					ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 20);
+					ctx.fillStyle = '#fff';
+					ctx.font = '16px "Retro", monospace';
+					ctx.fillText('PRESS ENTER TO RETRY', canvas.width / 2, canvas.height / 2 + 20);
+				}
+				ctx.textAlign = 'left';
+				}
+			}
+
+			let lastTime = 0;
+
+			function gameLoop(timestamp) {
+				if (!lastTime) lastTime = timestamp;
+				let deltaTime = (timestamp - lastTime) / 1000; // Time elapsed in seconds
+				lastTime = timestamp;
+
+				// Cap delta time to prevent huge jumps if the user switches tabs or lags
+				if (deltaTime > 0.1) deltaTime = 0.1;
+
+				// Normalizing to a 60 FPS baseline (dtFactor will be ~1.0 at 60Hz, ~0.25 at 240Hz)
+				const dtFactor = deltaTime * 60;
+
+				update(dtFactor);
+				render();
+				requestAnimationFrame(gameLoop);
+			}
+
 			requestAnimationFrame(gameLoop);
-		}
-
-		requestAnimationFrame(gameLoop);
 		</script>
 	</body>
 </html>
