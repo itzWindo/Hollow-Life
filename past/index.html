@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Characters</title>
     <link rel="stylesheet" href="nav.css">
-    <script src="https://itzwindo.github.io/Hollow-Life/past/access.js"></script>
+    <script src="access.js"></script>
 </head>
 <html lang="en">
     <style>
@@ -61,12 +61,20 @@
                         <div class="titc">Found Footage</div>
                     </portc>
                 </div>
-                <div id="clock"><a href="https://itzwindo.github.io/Hollow-Life/jsbgst.html">
+                <div id="clock"><a href="../jsbgst.html">
                         2012-03-22
                     </a>
                 </div>
-                <p style="text-align: right; font-size: small; color: rgb(255, 255, 255); font-family: 'Courier New', Courier, monospace;">v1.2.2</p>
+                <p style="text-align: right; font-size: small; color: rgb(255, 255, 255); font-family: 'Courier New', Courier, monospace;">v1.3.0</p>
             </div>
         </div>
+        <script>
+            const amb = new Audio('past.opus');
+            setTimeout( () => {
+                amb.play()
+            }
+            , 64);
+            amb.loop = true;
+        </script>
     </body>
 </html>

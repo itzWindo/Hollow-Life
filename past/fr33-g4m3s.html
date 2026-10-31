@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>FREE GAMES</title>
+        <script src="../inventory.js" defer></script>
+        <style>
+            @font-face {
+                font-family: 'Clock';
+                src: url('https://itzwindo.github.io/Hollow-Life/Clock.ttf') format('truetype');
+            }
+            
+            #clock {
+                background-color: black;
+                width: 100px;
+                height: auto;
+                margin: 0 auto;
+                padding: 10px;
+                border: 3px solid rgb(255, 0, 0);
+                text-align: center;
+                box-shadow: 0px 0px 9px rgb(255, 0, 0);
+                font-family: 'clock';
+            }
+
+            /* Style for the clickable game container */
+            .game-download-link {
+                cursor: pointer;
+                display: inline-block;
+                transition: opacity 0.2s;
+            }
+
+            .game-download-link:hover {
+                opacity: 0.8;
+            }
+
+            /* Optional: subtle visual indicator if already acquired */
+            .game-download-link.acquired {
+                filter: grayscale(40%);
+                cursor: default;
+            }
+        </style>
+    </head>
+    <body background="bg-game.gif">
+        <div style="margin: auto; padding: 20px;">
+            <img src="GAMES.gif" height="70">
+        </div>
+        <div style="top: 279px; left: 82px; position: absolute;">
+            <div style="text-align: center">
+                <table border="1">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center">
+                                <div class="game-download-link" id="game-ping" title="PING.exe">
+                                    <img src="opdl100.gif" width="200" height="40"><br>
+                                    <span style="font-family: 'Comic Sans MS'; font-size: 10px; color: #a600ff;">PING_V1.01.BIN</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="top: 500px; left: 5px; position: absolute;">
+            <div style="width: 563px; height: 13px;">
+                <hr size="1" noshade width="563">
+            </div>
+            <div style="width: 359px; height: 64px;">
+                © FREE GAMES • EST. 2019
+            </div>
+            <div>
+                <div id="clock"><a href="../jsbgst.html" style="color: #ff0000;">
+                    2019-12-14</a>
+                </div>
+            </div>
+        </div>
+        <audio id="pickup-sound" preload="auto">
+            <source src="pickup.ogg" type="audio/ogg">
+        </audio>
+        <script>
+            function getInventory() {
+                const saved = localStorage.getItem('arg_inventory');
+                return saved ? JSON.parse(saved) : [];
+            }
+
+            function saveInventory(inventoryArray) {
+                localStorage.setItem('arg_inventory', JSON.stringify(inventoryArray));
+            }
+
+            const pingElement = document.getElementById('game-ping');
+            const pickupSound = document.getElementById('pickup-sound');
+
+            const currentInventory = getInventory();
+            const isPingOwned = currentInventory.some(item => item.id === 'game_ping');
+
+            if (isPingOwned) {
+                pingElement.classList.add('acquired');
+            }
+
+            pingElement.addEventListener('click', () => {
+                let inventory = getInventory();
+                
+                if (!inventory.some(item => item.id === 'game_ping')) {
+                    
+                    const pingCartridge = {
+                        id: 'game_ping',
+                        name: 'Ping (1972)',
+                        image: 'ping.jpg',
+                        type: 'game',
+                        gameFile: 'games/ping.html'
+                    };
+
+                    inventory.push(pingCartridge);
+                    saveInventory(inventory);
+
+                    pickupSound.currentTime = 0;
+                    pickupSound.play().catch(e => console.log("Audio autoplay restricted:", e));
+
+                    pingElement.classList.add('acquired');
+                    
+                    console.log("Item saved to inventory covertly.");
+                }
+            });
+        </script>
+    </body>
+</html>
