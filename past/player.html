@@ -59,7 +59,7 @@
 
                 #inventory-grid {
                     display: grid;
-                    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+                    grid-template-columns: repeat(3, 1fr);
                     gap: 8px;
                     min-height: 50px;
                 }
@@ -83,7 +83,6 @@
                     object-fit: contain;
                 }
 
-                /* Optional hover tooltip for item names */
                 .inv-slot:hover::after {
                     content: attr(data-item-name);
                     position: absolute;
