@@ -103,21 +103,30 @@
 
 			window.addEventListener('keydown', (e) => {
 				initAudio();
-				if (e.key === 'ArrowUp') keys.Up = true;
-				if (e.key === 'ArrowDown') keys.Down = true;
+				
+				if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
+					keys.Up = true;
+				}
+				if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+					keys.Down = true;
+				}
 				
 				if (e.key === 'Enter') {
-				if (!gameStarted && !gameOver) {
-					serveBall();
-				} else if (gameOver) {
-					resetGame();
-				}
+					if (!gameStarted && !gameOver) {
+						serveBall();
+					} else if (gameOver) {
+						resetGame();
+					}
 				}
 			});
 
 			window.addEventListener('keyup', (e) => {
-				if (e.key === 'ArrowUp') keys.Up = false;
-				if (e.key === 'ArrowDown') keys.Down = false;
+				if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
+					keys.Up = false;
+				}
+				if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+					keys.Down = false;
+				}
 			});
 
 			function serveBall() {
