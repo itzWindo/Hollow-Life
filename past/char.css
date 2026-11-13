@@ -9,7 +9,7 @@
 }
 
 body {
-    background: url('forest.png') center local;
+    background: url('../images/forest.png') center local;
     background-size: cover;
     overflow-y: scroll;
     scrollbar-gutter: auto;

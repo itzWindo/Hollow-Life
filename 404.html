@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="icon" type="image/x-icon" href="null-profile.png">
+        <link rel="icon" type="image/x-icon" href="images/null-profile.png">
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1.0">
         <title>404</title>
@@ -45,7 +45,7 @@
 
             @font-face {
                 font-family: 'Anarchy';
-                src: url('Anarchy.ttf') format('truetype');
+                src: url('fonts/Anarchy.ttf') format('truetype');
             }
 
             .content {
@@ -63,7 +63,7 @@
             }
 
             .container {
-                background: url('wasteland.png');
+                background: url('images/wasteland.png');
                 padding: 2rem;
                 max-width: 850px;
                 max-height: 70vh;
@@ -108,7 +108,7 @@
     <body>
         <div class="background"></div>
         <video autoplay muted loop playsinline class="bg-video">
-            <source src="static.mp4" type="video/mp4">
+            <source src="videos/static.mp4" type="video/mp4">
         </video>
         <div class="content">
             <div class="container">
@@ -159,6 +159,10 @@
 
             else if (path.endsWith("/falcon.html")) {
                 window.location.replace("https://www.youtube.com/@FalconXWPlays/");
+            }
+
+            else if (path.endsWith("/rezman.html")) {
+                window.location.replace("videos/jim.mp4");
             }
 
             else if (path.endsWith("/cotlim.html")) {

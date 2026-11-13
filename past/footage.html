@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+    <link rel="icon" type="image/x-icon" href="../favicon.svg">
     <meta charset="UTF-8">
     <title>Found Footage</title>
     <script src="access.js"></script>
@@ -28,13 +29,13 @@
             <div id="image-frame">
                 <div class="textbox">Appearance:</div>
                 <div id="image-container">
-                    <img src="sdcard.jpg">
+                    <img src="../images/sdcard.jpg">
                 </div>
                 <div class="infobox">The SD card after hours of extensive cleaning.</div>
             </div>
         </div>
         <script>
-            const amb = new Audio('birds.opus');
+            const amb = new Audio('../audio/birds.opus');
             setTimeout( () => {
                 amb.play()
             }

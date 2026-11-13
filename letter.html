@@ -45,7 +45,7 @@
 
         @font-face {
             font-family: 'Anarchy';
-            src: url('Anarchy.ttf') format('truetype');
+            src: url('fonts/Anarchy.ttf') format('truetype');
         }
 
         .content {
@@ -63,7 +63,7 @@
         }
 
         .letter-container {
-            background: url('wasteland.png');
+            background: url('images/wasteland.png');
             padding: 4rem;
             margin: 2rem;
             max-width: 850px;
@@ -120,7 +120,7 @@
         }
 
         .next-button {
-            background: url('wasteland.png');
+            background: url('images/wasteland.png');
             border: none;
             padding: 15px 30px;
             font-size: 1.1rem;
@@ -160,7 +160,7 @@
 <body>
     <div class="background"></div>
     <video autoplay muted loop playsinline class="bg-video">
-        <source src="static.mp4" type="video/mp4">
+        <source src="videos/static.mp4" type="video/mp4">
     </video>
     <div class="content">
         <div class="letter-container" id="letterContainer">
@@ -184,7 +184,7 @@
         </div>
     </div>
     <script>
-        const amb = new Audio('letter.opus');
+        const amb = new Audio('audio/letter.opus');
             amb.loop = true;
             setTimeout( () => {
                 amb.play()
@@ -223,7 +223,7 @@
                 `;
                 
                 const questionImage = document.createElement('img');
-                questionImage.src = '20210501.png';
+                questionImage.src = 'images/20210501.png';
                 questionImage.alt = 'The Important Question';
                 questionImage.style.cssText = `
                     display: block;

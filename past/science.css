@@ -46,17 +46,17 @@ div#migiBlock {
 }
 
 .clicked-cursor {
-	cursor: url('kiwi.png'), auto !important;
+	cursor: url('../images/kiwi.png'), auto !important;
 }
 
 .clicked-cursor2 {
-	cursor: url('neko.png'), auto !important;
+	cursor: url('../images/neko.png'), auto !important;
 }
 
 div#footerBlock {
 	width: 750px;
 	color: #FFFFFF;
-	background-image: url(gradient.jpg);
+	background-image: url(../images/gradient.jpg);
 	margin: 0;
 	padding: 0;
 	background-color: #0033CC;
@@ -69,7 +69,7 @@ body {
 	line-height: 130%;
 	text-align: center;
 	color: #333333;
-	background:url(bg.gif);
+	background:url(../images/bg.gif);
 	margin: 0px;
 	padding: 0px;
 	background-color: #FFFFFF;
@@ -84,7 +84,7 @@ h1 {
 	border-color: #8086ff;
 	border-width: 2px;
 	color : #f4f8ff;
-	background-image: url(gradient.jpg);
+	background-image: url(../images/gradient.jpg);
 }
 
 h3 {

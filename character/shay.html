@@ -27,8 +27,8 @@
                 <div class="text-entry">
                     <h2>Gallery</h2>
                     <p id="par4">These are photos taken inside of Shay's cave while she was away.</p>
-                    <img src="cave1.png" style="height: 200px;">
-                    <img src="cave2.png" style="height: 200px;">
+                    <img src="../images/cave1.png" style="height: 200px;">
+                    <img src="../images/cave2.png" style="height: 200px;">
                 </div>
             </div>
             <div id="image-frame">
@@ -65,7 +65,7 @@
                         "Images of the god forsaken cavern she loves isolating in so much. I hope a stalactite falls on her head and impales her brain.";
                 }
 
-                const amb = new Audio('characters.opus');
+                const amb = new Audio('../audio/characters.opus');
                 amb.loop = true;
                 setTimeout( () => {
                     amb.play()
@@ -79,18 +79,18 @@
                 const lvl = [
                 {
                     label: "General",
-                    src: "https://itzwindo.github.io/Hollow-Life/shay.jpg",
+                    src: "../images/shay.jpg",
                     desc: "Cave dweller."
                 },
                 {
                     label: "Alternate",
-                    src: "azazal.jpg",
+                    src: "../images/azazal.jpg",
                     desc: "Depiction of Shay in her innocuous form."
                 }
                 ];
 
                 if (changed) {
-                    lvl[1].src = "augustus.jpg";
+                    lvl[1].src = "../images/augustus.jpg";
                     lvl[1].desc = "Look what you made me do.";
                 }
 

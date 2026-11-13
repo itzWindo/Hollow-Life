@@ -4,7 +4,7 @@ body {
     background-color: rgb(7, 0, 17);
     overflow: hidden;
     min-height: 100vh;
-    background: url('wasteland.png');
+    background: url('images/wasteland.png');
 }
 
 .frameframe {
@@ -82,7 +82,7 @@ body {
 }
 
 .bg-sides {
-    background: url('character/celestial.png');
+    background: url('images/celestial.png');
     position: fixed;
     top: 0;
     bottom: 0;

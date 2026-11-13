@@ -12,7 +12,7 @@
 
 			@font-face {
 				font-family: 'Retro';
-				src: url('../VT323.ttf') format('truetype');
+				src: url('../fonts/VT323.ttf') format('truetype');
 			}
 			
 			body {
@@ -155,7 +155,7 @@
 				const cdItem = {
 				id: 'item_cd',
 				name: 'Audio CD',
-				image: 'cd.png',
+				image: '../images/cd.png',
 				type: 'item',
 				description: 'A compact disc containing encrypted audio files.'
 				};
@@ -289,13 +289,11 @@
 
 			function gameLoop(timestamp) {
 				if (!lastTime) lastTime = timestamp;
-				let deltaTime = (timestamp - lastTime) / 1000; // Time elapsed in seconds
+				let deltaTime = (timestamp - lastTime) / 1000;
 				lastTime = timestamp;
 
-				// Cap delta time to prevent huge jumps if the user switches tabs or lags
 				if (deltaTime > 0.1) deltaTime = 0.1;
 
-				// Normalizing to a 60 FPS baseline (dtFactor will be ~1.0 at 60Hz, ~0.25 at 240Hz)
 				const dtFactor = deltaTime * 60;
 
 				update(dtFactor);

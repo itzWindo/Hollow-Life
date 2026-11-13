@@ -1,5 +1,5 @@
 body {
-    background: url('celestial.png') center local;
+    background: url('../images/celestial.png') center local;
     scrollbar-color: rgb(91, 0, 170) rgb(11, 0, 34);
     overflow-y: scroll;
     scrollbar-gutter: auto;
@@ -65,7 +65,7 @@ h1 {
     max-width: 1300px;
     margin: 128px auto 42px;
     overflow: hidden;
-    background: linear-gradient(0deg,rgb(24, 0, 51) 0,rgba(30, 0, 68, 0.6) 69%),url('wasteland.png') right/cover;
+    background: linear-gradient(0deg,rgb(24, 0, 51) 0,rgba(30, 0, 68, 0.6) 69%),url('../images/wasteland.png') right/cover;
     border: 2px inset rgb(56, 0, 102);
     outline: rgb(31, 0, 51) solid 1px;
     image-rendering: pixelated;
@@ -168,38 +168,6 @@ button.pressed {
     font-size: 16px
 }
 
-#header-container {
-    position: fixed !important;
-    top: 0;
-    width: 100%;
-    z-index: 2;
-    height: 80px
-}
-
-#redirnotice {
-    width: fit-content;
-    max-width: 80%!important;
-    padding: 12px;
-    margin-top: -12px;
-    margin-bottom: 50px
-}
-
-#authorsign {
-    position: absolute;
-    bottom: 3px;
-    right: 3px;
-    font-size: 13px;
-    font-weight: 700;
-    font-style: italic;
-    color: #756a;
-    font-family: Consolas;
-    text-align: right
-}
-
-#authorsign:hover {
-    color: #765
-}
-
 #cfix {
     position: absolute;
     width: 100%;
@@ -207,20 +175,4 @@ button.pressed {
     z-index: -1;
     top: 0;
     left: 0
-}
-
-.none {
-    font-style: italic;
-    color: #900;
-    cursor: url('/cursorclick.gif'),pointer
-}
-
-.none:hover {
-    color: #a00;
-    width: 100%;
-    text-decoration: underline
-}
-
-.text-entry:last-of-type {
-    border-bottom: none
 }

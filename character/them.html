@@ -34,7 +34,7 @@
                 <div class="infobox"></div>
             </div>
             <script>
-                const amb = new Audio('summerless.opus');
+                const amb = new Audio('../audio/summerless.opus');
                 amb.loop = true;
                 setTimeout( () => {
                     amb.play()
@@ -46,11 +46,11 @@
                 buttons.innerHTML = '';
                 const lvl = [{
                     label: "Current",
-                    src: "../null-profile.png",
+                    src: "../images/null-profile.png",
                     desc: "We don't know if 'They' even exist as real beings, so 'Their' whereabouts, if any, are unknown."
                 }, {
                     label: "Former",
-                    src: "../null-profile.png",
+                    src: "../images/null-profile.png",
                     desc: "We don't know if 'They' even exist as real beings, so 'Their' appearance, if any, is unknown."
                 }];
                 lvl.forEach( (e, t) => {

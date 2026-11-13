@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../favicon.svg">
     <meta charset="UTF-8">
     <title>Characters</title>
     <link rel="stylesheet" href="nav.css">
@@ -10,12 +10,12 @@
     <style>
         @font-face {
             font-family: 'Clock';
-            src: url('https://itzwindo.github.io/Hollow-Life/Clock.ttf') format('truetype');
+            src: url('../fonts/Clock.ttf') format('truetype');
         }
         
         #clock {
             background-color: black;
-            width: 100px; /* Can be in percentage also. */
+            width: 100px;
             height: auto;
             margin: 0 auto;
             padding: 10px;
@@ -43,20 +43,20 @@
                 </div>
                 <div class="frameframe">
                     <portc>
-                        <a href="watersill.jpg" download="watersill.jpg">
-                            <img src="null.png" height="200">
+                        <a href="../images/watersill.jpg" download="watersill.jpg">
+                            <img src="../images/null.png" height="200">
                         </a>
                         <div class="titc">Blackberry</div>
                     </portc>
                     <portc>
                         <a href="watersill.html">
-                            <img src="wral.jpg" height="200">
+                            <img src="../images/wral-past.jpg" height="200">
                         </a>
                         <div class="titc">Watersill</div>
                     </portc>
                     <portc>
                         <a href="footage.html">
-                            <img src="sdcard.jpg" height="200">
+                            <img src="../images/sdcard.jpg" height="200">
                         </a>
                         <div class="titc">Found Footage</div>
                     </portc>
@@ -65,11 +65,11 @@
                         2012-03-22
                     </a>
                 </div>
-                <p style="text-align: right; font-size: small; color: rgb(255, 255, 255); font-family: 'Courier New', Courier, monospace;">v1.3.1</p>
+                <p style="text-align: right; font-size: small; color: rgb(255, 255, 255); font-family: 'Courier New', Courier, monospace;" onclick="window.open('changelog-past.html', 'Changelog', 'width=628, height=256, location=no')">v1.3.2</p>
             </div>
         </div>
         <script>
-            const amb = new Audio('past.opus');
+            const amb = new Audio('../audio/past.opus');
             setTimeout( () => {
                 amb.play()
             }

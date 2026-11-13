@@ -27,14 +27,14 @@
             const found = document.cookie.match(/imageChoice=found/);
 
             if (found) {
-                img.src = "foundjohn.jpg";
+                img.src = "images/foundjohn.jpg";
             }
             else {
-                img.src = "lostjohn.jpg";
+                img.src = "images/lostjohn.jpg";
             }
         </script>
         <script>
-            const amb = new Audio('isyupow.opus');
+            const amb = new Audio('audio/isyupow.opus');
             setTimeout( () => {
                 amb.play()
             }

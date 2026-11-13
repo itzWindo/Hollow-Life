@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="icon" type="image/x-icon" href="../favicon.svg">
         <meta charset="UTF-8">
         <title>FREE GAMES</title>
         <script src="../inventory.js" defer></script>
         <style>
             @font-face {
                 font-family: 'Clock';
-                src: url('https://itzwindo.github.io/Hollow-Life/Clock.ttf') format('truetype');
+                src: url('../fonts/Clock.ttf') format('truetype');
             }
             
             #clock {
@@ -32,17 +33,11 @@
             .game-download-link:hover {
                 opacity: 0.8;
             }
-
-            /* Optional: subtle visual indicator if already acquired */
-            .game-download-link.acquired {
-                filter: grayscale(40%);
-                cursor: default;
-            }
         </style>
     </head>
-    <body background="bg-game.gif">
+    <body background="../images/bg-game.gif">
         <div style="margin: auto; padding: 20px;">
-            <img src="GAMES.gif" height="70">
+            <img src="../images/GAMES.gif" height="70">
         </div>
         <div style="top: 279px; left: 82px; position: absolute;">
             <div style="text-align: center">
@@ -51,7 +46,7 @@
                         <tr>
                             <td style="text-align: center">
                                 <div class="game-download-link" id="game-ping" title="PING.exe">
-                                    <img src="opdl100.gif" width="200" height="40"><br>
+                                    <img src="../images/opdl100.gif" width="200" height="40"><br>
                                     <span style="font-family: 'Comic Sans MS'; font-size: 10px; color: #a600ff;">PING_V1.02.BIN</span>
                                 </div>
                             </td>
@@ -74,7 +69,7 @@
             </div>
         </div>
         <audio id="pickup-sound" preload="auto">
-            <source src="pickup.ogg" type="audio/ogg">
+            <source src="../audio/pickup.ogg" type="audio/ogg">
         </audio>
         <script>
             function getInventory() {
@@ -104,7 +99,7 @@
                     const pingCartridge = {
                         id: 'game_ping',
                         name: 'Ping (1972)',
-                        image: 'ping.jpg',
+                        image: '../images/ping.jpg',
                         type: 'game',
                         gameFile: 'games/ping.html'
                     };

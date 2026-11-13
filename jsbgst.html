@@ -8,7 +8,7 @@
         <style>
             @font-face {
                 font-family: 'Clock';
-                src: url('Clock.ttf') format('truetype');
+                src: url('fonts/Clock.ttf') format('truetype');
             }
 
             body {
@@ -76,7 +76,7 @@
     </head>
     <body>
         <div id="clock">
-            <img src="clock.png" id="clockImage">
+            <img src="images/clock.png" id="clockImage">
             <div id="display">2022-03-22</div>
             <button id="toggleBtn" title="Set date" title="Set date"></button>
             <button id="travelBtn" title="Travel" title="Travel"></button>
@@ -119,7 +119,7 @@
                 }, 200);
             };
 
-            const clock = new Audio("clock.opus");
+            const clock = new Audio("audio/clock.opus");
             clock.preload = "auto";
 
             function playClock() {

@@ -1,4 +1,4 @@
-const TRACK_COUNT = 12;
+const TRACK_COUNT = 20;
 const audio = document.getElementById('audio');
 const status = document.getElementById('status');
 const playerDropZone = document.getElementById('cdPlayerDropZone');
@@ -37,7 +37,7 @@ playerDropZone.addEventListener('drop', (e) => {
 // --- AUDIO PLAYER CONTROLS ---
 function loadTrack() {
     if (!hasCD) return;
-    audio.src = `john/${track}.opus`;
+    audio.src = `../audio/john/${track}.opus`;
     audio.load();
     loaded = true;
     status.textContent = `Track ${track} of ${TRACK_COUNT}`;
