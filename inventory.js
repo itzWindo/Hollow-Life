@@ -1,3 +1,12 @@
+function resolvePath(path) {
+	if (!path || path.startsWith('http') || path.startsWith('data:') || path.startsWith('blob:')) {
+		return path;
+	}
+	const isSubdir = window.location.pathname.includes('/past/');
+	const cleanPath = path.replace(/^(\.\.\/|\.\/|\/)+/, '');
+	return isSubdir ? '../' + cleanPath : cleanPath;
+}
+
 function getInventory() {
 	const saved = localStorage.getItem('arg_inventory');
 	return saved ? JSON.parse(saved) : [];
@@ -29,32 +38,33 @@ function renderInventory() {
 		const slot = document.createElement('div');
 		slot.className = 'inv-slot';
 
-	if (inventory[i]) {
-	const item = inventory[i];
-	slot.setAttribute('data-item-name', item.name);
-	
-	const img = document.createElement('img');
-	img.src = item.image;
-	img.alt = item.name;
-	slot.appendChild(img);
+		if (inventory[i]) {
+			const item = inventory[i];
+			slot.setAttribute('data-item-name', item.name);
+			
+			const img = document.createElement('img');
+			// Use resolvePath so it works from any folder depth!
+			img.src = resolvePath(item.image);
+			img.alt = item.name;
+			slot.appendChild(img);
 
-	// Allow dragging games OR the CD item
-	if (item.type === 'game' || item.id === 'item_cd') {
-		slot.setAttribute('draggable', 'true');
-		
-slot.addEventListener('dragstart', (e) => {
-    // CONDITIONAL PAYLOAD: Send the game file path if it's a game, otherwise send the item ID
-    if (item.type === 'game') {
-      e.dataTransfer.setData('text/plain', item.gameFile);
-    } else {
-      e.dataTransfer.setData('text/plain', item.id);
-    }});
+			// Allow dragging games OR the CD item
+			if (item.type === 'game' || item.id === 'item_cd') {
+				slot.setAttribute('draggable', 'true');
+				
+				slot.addEventListener('dragstart', (e) => {
+					if (item.type === 'game') {
+						e.dataTransfer.setData('text/plain', resolvePath(item.gameFile));
+					} else {
+						e.dataTransfer.setData('text/plain', item.id);
+					}
+				});
 
-		slot.addEventListener('dragend', () => {
-		slot.style.opacity = '1';
-		});
-	}
-	}
+				slot.addEventListener('dragend', () => {
+					slot.style.opacity = '1';
+				});
+			}
+		}
 
 		grid.appendChild(slot);
 	}
